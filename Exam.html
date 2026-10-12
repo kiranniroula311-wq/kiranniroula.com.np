@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rastranirman Examination Seating Plan</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Segoe UI,sans-serif;background:#f3f7f5;color:#18382c}
+button,input,select,textarea{font:inherit}.app{display:flex;min-height:100vh}.side{width:245px;background:#123e2b;color:white;position:fixed;left:0;top:0;bottom:0;padding:14px;overflow:auto}.brand{padding:5px 4px 16px;border-bottom:1px solid #ffffff25;margin-bottom:8px}.logo{display:inline-grid;place-items:center;background:#fff;color:#176844;width:40px;height:40px;border-radius:8px;font-weight:bold;margin-right:7px}.brand small{display:block;margin-left:48px;color:#cce4d8}.group{font-size:10px;letter-spacing:1px;color:#a9c4b7;margin:14px 5px 5px}.nav button{width:100%;border:0;background:transparent;color:#dcece5;text-align:left;padding:9px;border-radius:7px;cursor:pointer;margin:1px 0}.nav button:hover,.nav button.active{background:#ffffff20;color:#fff}
+.main{margin-left:245px;width:calc(100% - 245px);padding:18px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.top h1{margin:0;font-size:24px}.muted{font-size:12px;color:#6e7e76}.page{display:none}.page.active{display:block}.card{background:#fff;border:1px solid #dbe7e1;border-radius:12px;padding:15px;margin-bottom:14px;box-shadow:0 3px 15px #123e2b0b}.grid{display:grid;gap:12px}.g4{grid-template-columns:repeat(4,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.form{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.field label{display:block;font-size:12px;font-weight:bold;margin-bottom:4px}.field input,.field select,.field textarea{width:100%;padding:8px;border:1px solid #ccdcd5;border-radius:7px}.toolbar{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.grow{flex:1}.btn{border:1px solid #d0ddd7;background:#fff;padding:8px 12px;border-radius:7px;cursor:pointer;font-weight:bold}.primary{background:#176b45;color:#fff;border-color:#176b45}.danger{background:#fff0ef;color:#b02e23;border-color:#ffd0cc}.blue{background:#edf4ff;color:#245ab5}.warn{background:#fff7df;color:#875d00}.ok{background:#eaf8f0;color:#176b45}.alert{padding:10px;border-radius:8px;margin:8px 0}.stat .num{font-size:28px;font-weight:bold}.tablewrap{overflow:auto;border:1px solid #dce8e2;border-radius:9px}table{width:100%;border-collapse:collapse;min-width:650px}th,td{padding:8px;border-bottom:1px solid #edf1ee;text-align:left;font-size:12px}th{background:#f6faf8}.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#edf7f1;color:#176b45;font-size:11px;font-weight:bold}.room{border:1px solid #dbe7e1;border-radius:10px;padding:12px;margin:9px 0;background:#fbfdfc}.roomhead{display:flex;justify-content:space-between;align-items:center;gap:8px}.areas{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:9px}.area{background:#f5faf7;border:1px solid #dfeae4;border-radius:8px;padding:9px}.desks{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:6px}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:15px;z-index:50}.modal.show{display:flex}.modalbox{width:min(900px,100%);max-height:94vh;overflow:auto;background:#fff;border-radius:14px;padding:17px}.close{border:0;background:#edf2ef;padding:7px;border-radius:7px;cursor:pointer}.toast{position:fixed;right:15px;bottom:15px;background:#153e2d;color:#fff;padding:10px 14px;border-radius:8px;display:none;z-index:100}.toast.show{display:block}
+
+/* SAME VISUAL SEAT PLAN */
+.roomvisual{background:#fff;border:1px solid #d8e4de;border-radius:10px;padding:12px;margin:10px 0}.front{text-align:center;background:#173f2d;color:#fff;padding:6px;border-radius:6px;font-size:11px}.rowlabel{text-align:center;color:#74827c;font-size:10px;margin:6px}.deskrow{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:7px}.desk{border:1px solid #d2e0d9;border-radius:6px;overflow:hidden;background:#f8fbf9}.deskhead{background:#edf5f0;padding:5px;text-align:center;font-size:10px;font-weight:bold}.seat{padding:5px;border-top:1px solid #e2eae6;font-size:10px;min-height:33px}.empty{color:#999}.roomtitle{text-align:center;margin:7px 0}
+.room-class-counts{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin:6px 0;font-size:11px}.room-class-counts strong{margin-right:3px}
+.rule-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.rule-option{display:flex;align-items:flex-start;gap:8px;border:1px solid #dbe7e1;border-radius:8px;padding:10px;cursor:pointer}.rule-option input{margin:2px 0 0;accent-color:#176b45}.rule-option small{display:block;color:#6e7e76;margin-top:3px}
+.bs-date-field{position:relative}.bs-date-input{display:flex;gap:5px}.bs-date-input input{min-width:0}.bs-calendar-toggle{flex:0 0 auto;padding:7px 10px}.bs-calendar[hidden]{display:none}.bs-calendar{position:absolute;z-index:20;top:100%;left:0;width:min(310px,calc(100vw - 50px));padding:10px;background:#fff;border:1px solid #ccdcd5;border-radius:9px;box-shadow:0 5px 20px #123e2b24}.bs-calendar-controls{display:grid;grid-template-columns:34px 1fr 78px 34px;gap:5px;align-items:center;margin-bottom:8px}.bs-calendar-controls select,.bs-calendar-controls button,.bs-calendar-today{padding:6px;border:1px solid #ccdcd5;border-radius:6px;background:#fff}.bs-calendar-controls select{min-width:0;width:100%}.bs-calendar-weekdays,.bs-calendar-days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}.bs-calendar-weekdays{font-size:11px;font-weight:bold;color:#6e7e76;margin-bottom:4px}.bs-calendar-days button,.bs-calendar-empty{min-height:32px;padding:4px 0}.bs-calendar-days button{border:1px solid transparent;border-radius:6px;background:#f6faf8;cursor:pointer}.bs-calendar-days button:hover{border-color:#176b45}.bs-calendar-days button.today{border-color:#176b45;color:#176b45;font-weight:bold}.bs-calendar-days button.selected{background:#176b45;color:#fff}.bs-calendar-today{width:100%;margin-top:8px;cursor:pointer;color:#176b45;font-weight:bold}
+.chart-row{display:grid;grid-template-columns:minmax(110px,1fr) minmax(100px,3fr) auto;align-items:center;gap:9px;margin:10px 0;font-size:12px}.chart-label{overflow-wrap:anywhere}.chart-track{height:15px;background:#edf2ef;border-radius:999px;overflow:hidden}.chart-fill{height:100%;background:#2e9565;border-radius:999px;min-width:0}.chart-fill.capacity{background:#a9d9bd}.chart-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:#52665b}.legend-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#2e9565;margin-right:4px}.legend-dot.capacity{background:#a9d9bd}.access-note{display:block;margin-top:3px;color:#875d00;white-space:pre-wrap}.duty-print-title{text-align:center;margin-bottom:12px}
+.seatmap-areas{align-items:start}.seatmap-seats{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:6px;margin-top:7px}.seatmap-seat{min-height:56px;padding:7px;border:1px solid #cbd9d1;border-radius:7px;background:#f4f6f5;color:#67736d;font-size:11px;cursor:not-allowed}.seatmap-seat span{display:block;margin-top:3px;overflow-wrap:anywhere}.seatmap-seat.available{background:#e7f8ed;border-color:#7bc293;color:#176b45;cursor:pointer}.seatmap-seat.available:hover,.seatmap-seat.selected{background:#c9f0d5;border:2px solid #176b45;color:#104a2f}.seatmap-seat.selected{box-shadow:0 0 0 2px #176b4533}.seatmap-seat:disabled{opacity:1}.room-share-controls{display:flex;align-items:center;gap:7px;margin:12px 0 0}.room-share-controls>b{font-size:14px}
+@media print{
+ .room-allocation-print{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3mm;align-items:start}
+ .room-allocation-print .room{margin:0;padding:2mm;border-radius:0;box-shadow:none;break-inside:avoid;page-break-inside:avoid}
+ .room-allocation-print h2{font-size:11px;margin:0 0 2mm}
+ .room-allocation-print .tablewrap{overflow:visible;border-radius:0}
+ .room-allocation-print table{width:100%;min-width:0;table-layout:fixed}
+ .room-allocation-print th,.room-allocation-print td{font-size:8px;padding:1mm 1.5mm}
+ .recordkeeper-print .tablewrap{overflow:visible;border:0}
+ .recordkeeper-print table{width:100%!important;min-width:0!important;table-layout:auto!important}
+ .recordkeeper-print th,.recordkeeper-print td{font-size:8pt!important;padding:2.5px!important;white-space:normal!important;overflow-wrap:anywhere;word-break:normal}
+ .recordkeeper-print th:nth-child(1),.recordkeeper-print td:nth-child(1){width:5%;text-align:center}
+ .recordkeeper-print th:nth-child(2),.recordkeeper-print td:nth-child(2){width:12%;text-align:center}
+ .recordkeeper-print th:nth-child(3),.recordkeeper-print td:nth-child(3){width:19%}
+ .recordkeeper-print th:nth-child(4),.recordkeeper-print td:nth-child(4),.recordkeeper-print th:nth-child(5),.recordkeeper-print td:nth-child(5){width:6%;text-align:center}
+ .recordkeeper-print th:nth-child(6),.recordkeeper-print td:nth-child(6){width:10%;text-align:center}
+ .recordkeeper-print th:nth-child(7),.recordkeeper-print td:nth-child(7){width:12%;text-align:center}
+ .recordkeeper-print th:nth-child(8),.recordkeeper-print td:nth-child(8){width:30%}
+}
+
+/* NOTICE */
+.noticeboard{border:3px solid #173f2d;background:#fff;padding:15px;margin:12px 0}.noticeboard .nbhead{text-align:center;border-bottom:2px solid #173f2d;padding-bottom:8px}.noticeboard h1{margin:2px;font-size:21px}.noticeboard h2{margin:4px;font-size:25px}.nbmeta{text-align:center;font-size:12px;line-height:1.6}.classbox{border:1px solid #555;margin:8px 0;padding:8px}.classbox h3{margin:0 0 5px;font-size:14px}.symbol-list{font-weight:bold;font-size:15px;line-height:1.5}.chip{display:inline-block;border:1px solid #aaa;padding:3px 6px;margin:2px;border-radius:4px}.nbfooter{text-align:center;border-top:1px solid #777;margin-top:8px;padding-top:6px;font-size:10px}
+
+/* PRINT: SAME LOOK AS PREVIEW */
+.print-area-table{width:100%;border-collapse:collapse;table-layout:fixed}.print-area-table th{border:2px solid #000;background:#eee;text-align:center;padding:6px;font-size:12px}.print-area-table td{border:1px solid #000;vertical-align:top;padding:4px}.print-desk{border:1px solid #000;margin-bottom:4px;page-break-inside:avoid}.print-desk-title{background:#eee;border-bottom:1px solid #000;text-align:center;padding:3px;font-size:9px;font-weight:bold}.desk-seats{display:flex;align-items:stretch}.print-seat{flex:1 1 0;min-width:0;padding:3px;border-right:1px solid #ccc;font-size:8.5px;min-height:24px;overflow-wrap:anywhere}.print-seat:last-child{border-right:0}.print-empty{text-align:center;color:#777}.print-room{page-break-after:always;margin-bottom:10px}.print-room:last-child{page-break-after:auto}.print-title{text-align:center;border:2px solid #000;padding:6px;margin-bottom:6px}.print-notice{page-break-after:always}.print-notice:last-child{page-break-after:auto}
+
+@media(max-width:1000px){.form{grid-template-columns:repeat(2,1fr)}.g4{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.side{position:static;width:100%}.app{display:block}.main{margin:0;width:100%;padding:10px}.form,.g2,.g4,.areas{grid-template-columns:1fr}.deskrow{grid-template-columns:1fr}}
+@media print{@page{size:A4 landscape;margin:8mm}.side,.top,.no-print{display:none!important}.main{margin:0;width:100%;padding:0}.page{display:none!important}.print-only{display:block!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+<div class="brand"><span class="logo">RN</span><b>Rastranirman</b><small>Examination Seat Plan</small></div>
+<nav class="nav">
+<div class="group">MAIN</div>
+<button data-p="dashboard" onclick="showPage('dashboard')">⌂ Dashboard</button>
+<button data-p="setup" onclick="showPage('setup')">⚙ Examination Setup</button>
+<button data-p="students" onclick="showPage('students')">👥 Students</button>
+<button data-p="rooms" onclick="showPage('rooms')">▦ Rooms & Desks</button>
+<button data-p="duty" onclick="showPage('duty')">✓ Invigilator Duty Roster</button>
+<button data-p="rules" onclick="showPage('rules')">◈ Allocation Rules</button>
+<div class="group">ALLOCATION</div>
+<button data-p="generate" onclick="showPage('generate')">⚡ Generate Plan</button>
+<button data-p="preview" onclick="showPage('preview')">▤ Seat Plan</button>
+<button data-p="search" onclick="showPage('search')">⌕ Find Student</button>
+<button data-p="roomalloc" onclick="showPage('roomalloc')">▦ Room-wise</button>
+<button data-p="classalloc" onclick="showPage('classalloc')">☷ Class-wise</button>
+<div class="group">NOTICE / REPORT</div>
+<button data-p="notices" onclick="showPage('notices')">▣ Notice Boards</button>
+<button data-p="attendance" onclick="showPage('attendance')">✓ Attendance</button>
+<button data-p="recordkeeper" onclick="showPage('recordkeeper')">✓ Record Keeper</button>
+<button data-p="examrecords" onclick="showPage('examrecords')">▤ Exam Records</button>
+<button data-p="reports" onclick="showPage('reports')">▥ Reports</button>
+<button data-p="history" onclick="showPage('history')">◷ Previous Saved Exams</button>
+<button data-p="settings" onclick="showPage('settings')">⚙ Finalize & Data</button>
+</nav></aside>
+
+<main class="main">
+<header class="top"><div><h1 id="title">Dashboard</h1><div id="schoolLine" class="muted"></div></div><div class="toolbar"><button class="btn" onclick="showPage('setup')">Setup</button><button class="btn primary" onclick="generate()">Generate</button></div></header>
+
+<section id="p-dashboard" class="page active">
+<div class="grid g4">
+<div class="card stat"><div id="ks" class="num">0</div><div>Students</div></div>
+<div class="card stat"><div id="kr" class="num">0</div><div>Rooms</div></div>
+<div class="card stat"><div id="kc" class="num">0</div><div>Total Capacity</div></div>
+<div class="card stat"><div id="ka" class="num">0</div><div>Allocated</div></div>
+</div>
+<div class="grid g2"><div class="card"><h2>Status</h2><div id="status"></div></div><div class="card"><h2>Quick Actions</h2><div class="toolbar"><button class="btn" onclick="showPage('students')">Students</button><button class="btn" onclick="showPage('rooms')">Rooms</button><button class="btn primary" onclick="generate()">Generate</button><button class="btn blue" onclick="showPage('notices')">Notice Boards</button></div></div></div>
+<div class="card"><h2>Class Summary</h2><div id="classSummary"></div></div>
+<div class="grid g2"><div class="card"><h2>Allocation by Class / Section</h2><div id="classChart"></div></div><div class="card"><h2>Room Occupancy</h2><div class="chart-legend"><span><i class="legend-dot"></i>Allocated</span><span><i class="legend-dot capacity"></i>Available capacity</span></div><div id="roomChart"></div></div></div>
+<div class="grid g2"><div class="card"><div class="toolbar"><h2>Absentees</h2><span class="grow"></span><button class="btn" onclick="showPage('examrecords')">Exam Records</button></div><div id="dashboardAbsentees"></div></div><div class="card"><div class="toolbar"><h2>Incidents</h2><span class="grow"></span><button class="btn" onclick="showPage('examrecords')">Exam Records</button></div><div id="dashboardIncidents"></div></div></div>
+</section>
+
+<section id="p-setup" class="page"><div class="card"><h2>Examination Setup</h2><div class="form">
+<div class="field"><label>School Name</label><input id="schoolName"></div><div class="field"><label>School Address</label><input id="schoolAddress"></div>
+<div class="field"><label>Exam Name</label><input id="examName"></div><div class="field bs-date-field"><label for="examDate">Exam Date (B.S.)</label><div class="bs-date-input"><input id="examDate" readonly placeholder="YYYY-MM-DD (B.S.)" onclick="toggleSetupBsCalendar()" aria-haspopup="dialog" aria-controls="setupBsCalendar"><button class="btn bs-calendar-toggle" type="button" onclick="toggleSetupBsCalendar()" aria-label="Choose Bikram Sambat exam date">Calendar</button></div><div id="setupBsCalendar" class="bs-calendar" role="dialog" aria-label="Bikram Sambat calendar" hidden></div></div>
+<div class="field"><label>Exam Time</label><input id="examTime"></div><div class="field"><label>Academic Year</label><input id="academicYear"></div>
+<div class="field"><label>Allocation Seed</label><input id="seed"></div>
+</div><br><button class="btn primary" onclick="saveSetup()">Save Setup</button></div></section>
+
+<section id="p-students" class="page"><div class="card"><div class="toolbar"><h2>Students</h2><span class="grow"></span><input id="studentSearch" placeholder="Search..." oninput="renderStudents()"><button class="btn primary" onclick="studentModal()">+ Add Student</button><button class="btn" onclick="$('csv').click()">Import CSV</button><input id="csv" type="file" accept=".csv,.txt" hidden onchange="importCSV(event)"></div><div class="toolbar"><span id="sel" class="badge">0 selected</span><button class="btn danger" onclick="deleteSelected()">Delete Selected</button></div><div id="importMsg"></div><div class="tablewrap"><table><thead><tr><th><input type="checkbox" onchange="selectAll(this.checked)"></th><th>Symbol</th><th>Name</th><th>Class</th><th>Section</th><th>Stream</th><th>Accessible Seating Note</th><th>Action</th></tr></thead><tbody id="students"></tbody></table></div></div></section>
+
+<section id="p-rooms" class="page"><div class="card"><div class="toolbar"><h2>Rooms & Desks</h2><span class="grow"></span><button class="btn" onclick="addSevenToTenRooms()">Add 7–10 Plan Rooms</button><button class="btn" onclick="exportRoomsCSV()">Export Rooms CSV</button><button class="btn" onclick="$('roomcsv').click()">Import Rooms CSV</button><input id="roomcsv" type="file" accept=".csv,text/csv" hidden onchange="importRoomsCSV(event)"><button class="btn primary" onclick="roomModal()">+ Add Room</button></div><div class="alert ok">MHS has separate Remove Desk buttons. Existing room/student data is preserved.</div><div id="rooms"></div></div></section>
+
+<section id="p-duty" class="page"><div class="card"><div class="toolbar"><h2>Invigilator Duty Roster</h2><span class="grow"></span><button class="btn primary" onclick="printDutyRoster()">Print Duty Roster</button></div><p class="muted">Edit room assignments here whenever needed. Runner is a separate duty role. Changes save without clearing the seat plan.</p><div class="card"><h3>Bulk Room Assignments</h3><p class="muted">Paste rows as <b>Room, Invigilator, Runner</b> (comma-separated or tab-separated). Include a header if preferred; room names must match exactly.</p><div class="field"><label for="dutyBulk">Room assignments</label><textarea id="dutyBulk" rows="5" placeholder="Room, Invigilator, Runner&#10;Room 1, Teacher A, Runner A&#10;Room 2, Teacher B, Runner B"></textarea></div><br><button class="btn blue" onclick="applyBulkDutyAssignments()">Apply Bulk Assignments</button></div><div id="dutyRoster"></div></div></section>
+
+<section id="p-rules" class="page"><div class="card"><h2>Allocation Rules</h2><p class="muted">Choose and save rules separately for each level. Changes apply the next time you generate that level.</p><div class="grid g2"><div class="card"><h3>Level 4–6</h3><div class="rule-options"><label class="rule-option"><input id="rule46Spread" type="checkbox" onchange="updateRule('4-6','spreadClasses',this.checked)"><span>Spread different classes<small>Alternate classes while filling seats.</small></span></label><label class="rule-option"><input id="rule46SymbolOrder" type="checkbox" onchange="updateRule('4-6','symbolOrder',this.checked)"><span>Order by symbol number<small>Sort student symbols numerically before allocation.</small></span></label><label class="rule-option"><input id="rule46Rotate" type="checkbox" onchange="updateRule('4-6','rotateRooms',this.checked)"><span>Rotate room order<small>Change the starting room for each generation.</small></span></label></div></div><div class="card"><h3>Level 7–10</h3><div class="rule-options"><label class="rule-option"><input id="rule710SymbolOrder" type="checkbox" onchange="updateRule('7-10','symbolOrder',this.checked)"><span>Order by symbol number<small>Allocate students in ascending symbol order within each class.</small></span></label><label class="rule-option"><input id="rule710Separate" type="checkbox" onchange="updateRule('7-10','separateClasses',this.checked)"><span>Keep same-class students at different desks<small>When enabled, each desk has at most one student from each class.</small></span></label><label class="rule-option"><input id="rule710Rotate" type="checkbox" onchange="updateRule('7-10','rotateStart',this.checked)"><span>Rotate starting class and room each time<small>Keep symbols in order, but start each new plan with the next class and room.</small></span></label></div></div></div><div class="alert ok">Generation stops if there are not enough usable desks or room capacity.</div></div></section>
+
+<section id="p-generate" class="page"><div class="card"><div class="toolbar" style="margin-bottom:12px"><b>Seat Plan Level:</b><select id="planLevel" style="padding:8px;border:1px solid #ccdcd5;border-radius:7px" onchange="renderGenerate()"><option value="4-6">Level 4–6</option><option value="7-10">Level 7–10</option></select><span class="muted">Only students and rooms assigned to the selected level will be used.</span></div><div class="grid g4"><div class="card stat"><div id="gs" class="num">0</div>Students</div><div class="card stat"><div id="gc" class="num">0</div>Capacity</div><div class="card stat"><div id="gb" class="num">0</div>Empty Seats</div><div class="card stat"><div id="gd" class="num">0</div>Allocated</div></div><div id="capacity"></div><button class="btn primary" onclick="generate()">⚡ Generate / Regenerate</button></div></section>
+
+<section id="p-preview" class="page"><div class="card"><div class="toolbar"><h2>Seat Plan Preview</h2><span class="grow"></span><button class="btn primary" onclick="printSeatPlan()">Print A4 Landscape</button></div><div class="toolbar" style="margin:8px 0 12px"><label for="whatsappGroupLink"><b>WhatsApp group invite link</b></label><input id="whatsappGroupLink" type="url" placeholder="https://chat.whatsapp.com/..." style="min-width:260px;flex:1" onchange="saveWhatsAppGroupLink(this.value)"><span class="muted">Share each room as a JPEG using your device share sheet. If unavailable, download the image and attach it in WhatsApp.</span></div><div id="preview"></div></div></section>
+
+<section id="p-search" class="page"><div class="card"><h2>Find Student / Symbol</h2><input id="find" style="width:100%;padding:10px" placeholder="Symbol, name, class..." oninput="renderSearch()"><div id="results"></div></div></section>
+
+<section id="p-roomalloc" class="page"><div class="card"><div class="toolbar"><h2>Room-wise Allocation</h2><span class="grow"></span><button class="btn primary" onclick="printRoomAllocation()">Print</button></div><div id="roomalloc"></div></div></section>
+
+<section id="p-classalloc" class="page"><div class="card"><div class="toolbar"><h2>Class-wise Allocation</h2><span class="grow"></span><button class="btn primary" onclick="printClassList()">Print</button></div><div id="classalloc"></div></div></section>
+
+<section id="p-notices" class="page"><div class="card"><h2>Room Notice Boards</h2><div class="alert ok">Each room notice shows Room No., total allocated students, class/section, number of students and the symbol number range in that room.</div><div class="toolbar"><button class="btn primary" onclick="printRoomNoticeBoards()">Print All Room Notice Boards</button><button class="btn" onclick="printStudentDisplay()">Print Student Display Board</button><button class="btn blue" onclick="printRoomSummary()">Print Room Summary</button></div><div id="noticeboards"></div></div></section>
+
+<section id="p-attendance" class="page"><div class="card"><div class="toolbar"><h2>Attendance Sheets</h2><span class="grow"></span><button class="btn primary" onclick="printAttendance()">Print Room Attendance</button><button class="btn" onclick="printClassAttendance()">Print Class Attendance</button></div><div id="attendance"></div></div></section>
+
+<section id="p-recordkeeper" class="page"><div class="card"><div class="toolbar"><h2>Record Keeper</h2><span class="grow"></span><button class="btn primary" onclick="printRecordKeeper()">Print Record Keeper</button></div><div id="recordkeeper"></div></div></section>
+
+<section id="p-examrecords" class="page">
+<div class="card">
+<div class="toolbar"><h2>Exam Records</h2><span class="grow"></span><button class="btn primary" onclick="printExamRecords()">Print Exam Records</button></div>
+<p class="muted">Enter a student’s symbol number to fill in their name, then record absence, cheating, misbehaviour, or another note. The date defaults to today in B.S.; use the calendar to choose another date.</p>
+<div class="form">
+<div class="field"><label for="recordSymbol">Symbol No.</label><input id="recordSymbol" autocomplete="off" placeholder="Enter symbol number" oninput="lookupExamRecordStudent()"></div>
+<div class="field"><label for="recordName">Name</label><input id="recordName" readonly placeholder="Name fills in from student list"></div>
+<div class="field"><label for="recordClass">Class</label><input id="recordClass" readonly placeholder="Class fills in from student list"></div>
+<div class="field"><label for="recordSection">Section</label><input id="recordSection" readonly placeholder="Section fills in from student list"></div>
+<div class="field"><label for="recordType">Record</label><select id="recordType"><option>Absent</option><option>Cheating</option><option>Misbehaviour</option><option>Other</option></select></div>
+<div class="field bs-date-field"><label for="recordDate">Date (B.S.)</label><div class="bs-date-input"><input id="recordDate" readonly placeholder="YYYY-MM-DD (B.S.)" onclick="toggleBsCalendar()" aria-haspopup="dialog" aria-controls="recordBsCalendar"><button class="btn bs-calendar-toggle" type="button" onclick="toggleBsCalendar()" aria-label="Choose Bikram Sambat date">Calendar</button></div><div id="recordBsCalendar" class="bs-calendar" role="dialog" aria-label="Bikram Sambat calendar" hidden></div></div>
+<div class="field"><label for="recordNote">Note</label><input id="recordNote" placeholder="Details or note"></div>
+</div>
+<br><button class="btn primary" onclick="addExamRecord()">Add Record</button>
+</div>
+<div class="card"><h3>Recorded Absentees and Incidents</h3><div id="examRecords"></div></div>
+</section>
+
+<section id="p-reports" class="page"><div class="card"><h2>Reports</h2><div id="reports"></div></div></section>
+
+<section id="p-history" class="page"><div class="card"><div class="toolbar"><h2>Previous Saved Examinations</h2><span class="grow"></span><button class="btn primary" onclick="snapshot()">Save Current Examination</button></div><div class="alert ok">Previous saved examinations are stored separately, so current dates/data are not erased by updates.</div><div id="history"></div></div></section>
+
+<section id="p-settings" class="page"><div class="card"><h2>Finalize & Data</h2><div id="lock"></div><div class="toolbar"><button class="btn primary" onclick="finalizePlan()">✓ Finalize & Lock</button><button class="btn warn" onclick="unlock()">Unlock</button><button class="btn danger" onclick="clearAllocation()">Clear Allocation Only</button><button class="btn blue" onclick="snapshot()">Save Copy</button><button class="btn" onclick="exportStudents()">Export Students CSV</button><button class="btn" onclick="exportPlan()">Export Seat Plan CSV</button><button class="btn" onclick="backupJSON()">Backup All Data</button><button class="btn" onclick="$('restore').click()">Restore Backup</button><input id="restore" type="file" accept=".json" hidden onchange="restoreJSON(event)"></div></div><div class="card"><div class="toolbar"><h3>Automatic Plan Backups</h3><span class="grow"></span><button class="btn" onclick="backupJSON()">Download Backup File</button></div><p class="muted">A copy of the current seat plan and invigilator assignments is saved here before a plan is regenerated or cleared. Backups stay in this browser until deleted or restored.</p><div id="autoBackups"></div></div></section>
+</main></div>
+
+<div id="modal" class="modal"><div id="modalbox" class="modalbox"></div></div><div id="toast" class="toast"></div>
+
+<script>
+const NEW_KEY="rns_seatplan_v6",OLD_KEY="rns_seatplan_v5",HISTORY_KEY="rns_previous_examinations_v1",AUTO_BACKUP_KEY="rns_automatic_plan_backups_v1";
+const DEFAULT_RULES={"4-6":{spreadClasses:true,symbolOrder:true,rotateRooms:true},"7-10":{symbolOrder:true,separateClasses:true,rotateStart:true}};
+let state={currentLevel:"4-6",setup:{schoolName:"Rastranirman Secondary School",schoolAddress:"Ratuwamai-10, Morang",examName:"Annual Examination",examDate:"",examTime:"10:00 AM - 1:00 PM",academicYear:"2083",seed:"RN-2083"},students:[],rooms:[],allocation:[],examRecords:[],rules:DEFAULT_RULES,rotationCount:0,locked:false};
+let history=[];
+let examSetupCalendar={year:2083,month:6};
+let automaticPlanBackups=[];
+let pendingSeatMove=null;
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+const uid=()=> "id_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,8);
+function toast(x){$("toast").textContent=x;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2300)}
+function normalizeRoom(r){r={...r};r.id=r.id||uid();r.number=String(r.number??"");r.rows=Math.max(1,Number(r.rows)||1);r.teacherName=r.teacherName||"";r.runnerName=r.runnerName||"";r.level=(r.level==="4-6"||r.level==="7-10")?r.level:"";["lhs","mhs","rhs"].forEach(a=>{r[a]={...(r[a]||{})};let v=Array.isArray(r[a].deskSeats)?r[a].deskSeats.map(Number).filter(n=>n>=0&&n<=3):[];let n=Math.max(0,Number(r[a].desks)||v.length);while(v.length<n)v.push(1);r[a].deskSeats=v.slice(0,n);r[a].desks=r[a].deskSeats.length});return r}
+function capacity(r){r=normalizeRoom(r);return ["lhs","mhs","rhs"].reduce((t,a)=>t+r[a].deskSeats.reduce((x,n)=>x+n,0),0)}
+function desks(r){r=normalizeRoom(r);return ["lhs","mhs","rhs"].reduce((t,a)=>t+r[a].desks,0)}
+function normalizeRules(rules){
+ let result={};
+ for(const level of ["4-6","7-10"]){
+   const defaults=DEFAULT_RULES[level],saved=rules?.[level]||{};
+   result[level]=Object.fromEntries(Object.entries(defaults).map(([key,value])=>[key,typeof saved[key]==="boolean"?saved[key]:(key==="rotateStart"&&saved.randomize===true?true:value)]));
+ }
+ return result;
+}
+function load(){let x=null;try{x=JSON.parse(localStorage.getItem(NEW_KEY)||"null")}catch(e){}if(!x)try{x=JSON.parse(localStorage.getItem(OLD_KEY)||"null")}catch(e){}if(!x)for(const k of ["rns_seatplan_v4","rns_seatplan_v3","rns_seatplan_v2","rns_seatplan"]){try{x=JSON.parse(localStorage.getItem(k)||"null")}catch(e){x=null}if(x)break}if(x)state={...state,...x,currentLevel:x.currentLevel||"4-6",setup:{...state.setup,...(x.setup||{})}};state.students=Array.isArray(state.students)?state.students:[];state.rooms=Array.isArray(state.rooms)?state.rooms.map(normalizeRoom):[];state.allocation=Array.isArray(state.allocation)?state.allocation:[];state.examRecords=Array.isArray(state.examRecords)?state.examRecords.map(record=>({...record,className:record.className||"",section:record.section||""})):[];state.rules=normalizeRules(state.rules);try{history=JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]")||[]}catch(e){history=[]}try{automaticPlanBackups=JSON.parse(localStorage.getItem(AUTO_BACKUP_KEY)||"[]")||[]}catch(e){automaticPlanBackups=[]}save()}
+function save(){localStorage.setItem(NEW_KEY,JSON.stringify(state));localStorage.setItem(OLD_KEY,JSON.stringify(state))}
+function invalidate(){state.allocation=[];state.locked=false;save()}
+function setupUI(){for(const k in state.setup)if($(k))$(k).value=state.setup[k]||"";const defaultExamDate=bsDateFromToday()?formatBsDate(bsDateFromToday()):"";if($("examDate"))$("examDate").value=state.setup.examDate||defaultExamDate;if($("planLevel"))$("planLevel").value=state.currentLevel||"4-6";if($("rule46Spread"))$("rule46Spread").checked=state.rules["4-6"].spreadClasses;if($("rule46SymbolOrder"))$("rule46SymbolOrder").checked=state.rules["4-6"].symbolOrder;if($("rule46Rotate"))$("rule46Rotate").checked=state.rules["4-6"].rotateRooms;if($("rule710SymbolOrder"))$("rule710SymbolOrder").checked=state.rules["7-10"].symbolOrder;if($("rule710Separate"))$("rule710Separate").checked=state.rules["7-10"].separateClasses;if($("rule710Rotate"))$("rule710Rotate").checked=state.rules["7-10"].rotateStart;$("schoolLine").textContent=(state.setup.schoolName||"")+" • "+(state.setup.schoolAddress||"")}
+function updateRule(level,rule,value){if(state.locked){setupUI();return toast("Unlock first.");}state.rules[level][rule]=value;save()}
+function saveSetup(){if(state.locked)return toast("Unlock first.");for(const k in state.setup)if($(k))state.setup[k]=$(k).value;save();setupUI();toast("Setup saved.")}
+
+const titles={dashboard:"Dashboard",setup:"Examination Setup",students:"Students",rooms:"Rooms & Desks",duty:"Invigilator Duty Roster",rules:"Allocation Rules",generate:"Generate Plan",preview:"Seat Plan",search:"Find Student",roomalloc:"Room-wise Allocation",classalloc:"Class-wise Allocation",notices:"Room Notice Boards",attendance:"Attendance Sheets",recordkeeper:"Record Keeper",examrecords:"Exam Records",reports:"Reports",history:"Previous Saved Exams",settings:"Finalize & Data"};
+function showPage(p){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$("p-"+p).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.p===p));$("title").textContent=titles[p]||p;renderPage(p)}
+function renderPage(p){if(p==="dashboard")dashboard();if(p==="students")renderStudents();if(p==="rooms")renderRooms();if(p==="duty")renderDutyRoster();if(p==="generate")renderGenerate();if(p==="preview")renderPreview();if(p==="search")renderSearch();if(p==="roomalloc")renderRoomAlloc();if(p==="classalloc")renderClassAlloc();if(p==="notices")renderNoticeBoards();if(p==="attendance")renderAttendance();if(p==="recordkeeper")renderRecordKeeper();if(p==="examrecords")renderExamRecords();if(p==="reports")renderReports();if(p==="history")renderHistory();if(p==="settings")renderLock()}
+
+function dashboard(){let c=state.rooms.reduce((x,r)=>x+capacity(r),0);$("ks").textContent=state.students.length;$("kr").textContent=state.rooms.length;$("kc").textContent=c;$("ka").textContent=state.allocation.length;$("status").innerHTML=state.locked?'<span class="badge">FINALIZED / LOCKED</span>':state.allocation.length?'<span class="badge">Allocation Generated</span>':'<span class="badge">Ready to Generate</span>';let g={};state.students.forEach(s=>{let k=s.className+" / "+s.section;g[k]=(g[k]||0)+1});$("classSummary").innerHTML=Object.entries(g).map(([k,v])=>`<span class="badge">${esc(k)}: ${v}</span> `).join("")||"No students.";
+ let classTotals=new Map(),classAllocated=new Map();state.students.forEach(student=>{let key=student.className+" / "+student.section;classTotals.set(key,(classTotals.get(key)||0)+1)});state.allocation.forEach(student=>{let key=student.className+" / "+student.section;classAllocated.set(key,(classAllocated.get(key)||0)+1)});const maxClass=Math.max(1,...classTotals.values());$("classChart").innerHTML=[...classTotals.entries()].sort(([a],[b])=>a.localeCompare(b,undefined,{numeric:true})).map(([key,total])=>{let allocated=classAllocated.get(key)||0,width=Math.round(allocated/maxClass*100);return `<div class="chart-row"><span class="chart-label">${esc(key)}</span><div class="chart-track" role="img" aria-label="${esc(key)}: ${allocated} of ${total} students allocated"><div class="chart-fill" style="width:${width}%"></div></div><b>${allocated} / ${total}</b></div>`}).join("")||'<div class="muted">No student data.</div>';
+ $("roomChart").innerHTML=state.rooms.map(room=>{let roomAllocation=state.allocation.filter(item=>item.roomId===room.id||String(item.roomNumber)===String(room.number)),roomCapacity=capacity(room),allocated=roomAllocation.length,ratio=roomCapacity?Math.min(100,Math.round(allocated/roomCapacity*100)):0;return `<div class="chart-row"><span class="chart-label">Room ${esc(room.number)}</span><div class="chart-track" role="img" aria-label="Room ${esc(room.number)}: ${allocated} allocated of ${roomCapacity} capacity"><div style="display:flex;height:100%"><span class="chart-fill" style="width:${ratio}%"></span><span class="chart-fill capacity" style="width:${100-ratio}%"></span></div></div><b>${allocated} / ${roomCapacity}</b></div>`}).join("")||'<div class="muted">No rooms configured.</div>';
+ const absentees=[],absentSymbols=new Set();state.examRecords.filter(record=>String(record.type).toLowerCase()==="absent").forEach(record=>{let key=String(record.symbol).trim().toLowerCase();if(!absentSymbols.has(key)){absentSymbols.add(key);absentees.push(record)}});const incidents=state.examRecords.filter(record=>String(record.type).toLowerCase()!=="absent");const recordRows=items=>items.slice(0,5).map(record=>`<div class="alert">${esc(record.symbol)} • ${esc(record.name)} — ${esc(record.type)}${record.note?`: ${esc(record.note)}`:""}</div>`).join("");$("dashboardAbsentees").innerHTML=`<div class="badge">${absentees.length} recorded absentee(s)</div>${recordRows(absentees)||'<div class="muted" style="margin-top:8px">No absentees recorded.</div>'}`;$("dashboardIncidents").innerHTML=`<div class="badge">${incidents.length} incident record(s)</div>${recordRows(incidents)||'<div class="muted" style="margin-top:8px">No incidents recorded.</div>'}`}
+
+function saveSetup(){}
+function realSaveSetup(){if(state.locked)return toast("Unlock first.");for(const k of Object.keys(state.setup))if($(k))state.setup[k]=$(k).value;save();setupUI();toast("Setup saved.")}
+window.saveSetup=realSaveSetup;
+
+function renderStudents(){let q=($("studentSearch")?.value||"").toLowerCase();let a=state.students.filter(s=>[s.symbol,s.name,s.className,s.section,s.stream,s.seatingNote].join(" ").toLowerCase().includes(q));$("students").innerHTML=a.map(s=>`<tr><td><input class="sc" type="checkbox" data-id="${esc(s.id)}" onchange="selCount()"></td><td><b>${esc(s.symbol)}</b></td><td>${esc(s.name)}</td><td>${esc(s.className)}</td><td>${esc(s.section)}</td><td>${esc(s.stream||"")}</td><td>${s.seatingNote?`<span class="access-note">${esc(s.seatingNote)}</span>`:""}</td><td><button class="btn" onclick="studentModal('${esc(s.id)}')">Edit</button> <button class="btn danger" onclick="deleteStudent('${esc(s.id)}')">Delete</button></td></tr>`).join("")||"<tr><td colspan=8>No students.</td></tr>";selCount()}
+function selCount(){$("sel").textContent=document.querySelectorAll(".sc:checked").length+" selected"}
+function selectAll(v){document.querySelectorAll(".sc").forEach(x=>x.checked=v);selCount()}
+function studentModal(id=""){if(state.locked)return toast("Unlock first.");const student=state.students.find(item=>item.id===id)||{symbol:"",name:"",className:"",section:"",stream:"",seatingNote:""};$("modalbox").innerHTML=`<div class="toolbar"><h2>${id?"Edit":"Add"} Student</h2><span class="grow"></span><button class="close" onclick="closeModal()">×</button></div><div class="form"><div class="field"><label>Symbol</label><input id="ms" value="${esc(student.symbol)}"></div><div class="field"><label>Name</label><input id="mn" value="${esc(student.name)}"></div><div class="field"><label>Class</label><input id="mc" value="${esc(student.className)}"></div><div class="field"><label>Section</label><input id="msec" value="${esc(student.section)}"></div><div class="field"><label>Stream</label><input id="mstr" value="${esc(student.stream||"")}"></div><div class="field"><label>Accessible seating arrangement</label><textarea id="mnote" rows="2" placeholder="For example: front row, wheelchair access">${esc(student.seatingNote||"")}</textarea></div></div><br><button class="btn primary" onclick="saveStudent('${esc(id)}')">Save</button>`;$("modal").classList.add("show")}
+function closeModal(){$("modal").classList.remove("show")}
+function addStudent(){saveStudent()}
+function saveStudent(id=""){if(state.locked)return toast("Unlock first.");const previous=state.students.find(item=>item.id===id);if(id&&!previous)return toast("Student not found.");const student={id:id||uid(),symbol:$("ms").value.trim(),name:$("mn").value.trim(),className:$("mc").value.trim(),section:$("msec").value.trim(),stream:$("mstr").value.trim(),seatingNote:$("mnote").value.trim()};if(!student.symbol||!student.name||!student.className||!student.section)return toast("Fill required fields.");if(state.students.some(item=>String(item.symbol)===student.symbol&&item.id!==id))return toast("Duplicate symbol.");if(previous){const identityChanged=["symbol","name","className","section","stream"].some(key=>String(previous[key]??"")!==student[key]);if(identityChanged&&state.allocation.length&&!saveAutomaticPlanBackup("Before changing student details",studentLevel(previous)))return;state.students=state.students.map(item=>item.id===id?student:item);if(identityChanged)invalidate();else save()}else{if(state.allocation.length&&!saveAutomaticPlanBackup("Before adding a student",studentLevel(student)))return;state.students.push(student);invalidate()}closeModal();renderAll();toast(previous?"Student updated.":"Student added.")}
+function deleteStudent(id){if(state.locked)return toast("Unlock first.");if(confirm("Delete this student?")){if(state.allocation.length&&!saveAutomaticPlanBackup("Before deleting a student",state.currentLevel))return;state.students=state.students.filter(x=>x.id!==id);invalidate();renderStudents()}}
+function deleteSelected(){if(state.locked)return toast("Unlock first.");let ids=[...document.querySelectorAll(".sc:checked")].map(x=>x.dataset.id);if(!ids.length)return toast("Select students first.");if(confirm("Delete selected students?")){if(state.allocation.length&&!saveAutomaticPlanBackup("Before deleting students",state.currentLevel))return;state.students=state.students.filter(x=>!ids.includes(x.id));invalidate();renderStudents()}}
+function importCSV(e){if(state.locked)return toast("Unlock first.");const input=e.target,file=input.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const rows=parseCSVRows(String(reader.result||""));if(rows.length<2)throw new Error("CSV needs a header and at least one student.");const headers=rows[0].map(cell=>cell.trim().replace(/^\uFEFF/,"").toLowerCase()),find=names=>headers.findIndex(header=>names.some(name=>header===name||header.startsWith(name+" "))),columns={symbol:find(["symbol","symbol no","symbol number"]),name:find(["name","student name"]),className:find(["class","class name"]),section:find(["section"]),stream:find(["stream"]),seatingNote:find(["seating note","seating arrangement","accessible seating"])};if([columns.symbol,columns.name,columns.className,columns.section].some(index=>index<0))throw new Error("CSV needs Symbol, Name, Class and Section.");const existing=new Set(state.students.map(student=>String(student.symbol))),get=(cells,index)=>index<0?"":String(cells[index]??"").trim(),additions=[];for(let index=1;index<rows.length;index++){const cells=rows[index],student={id:uid(),symbol:get(cells,columns.symbol),name:get(cells,columns.name),className:get(cells,columns.className),section:get(cells,columns.section),stream:get(cells,columns.stream),seatingNote:get(cells,columns.seatingNote)};if(student.symbol&&student.name&&student.className&&student.section&&!existing.has(student.symbol)){additions.push(student);existing.add(student.symbol)}}if(additions.length&&state.allocation.length&&!saveAutomaticPlanBackup("Before importing students",state.currentLevel))throw new Error("Student import cancelled because the current plan could not be backed up.");if(additions.length){state.students.push(...additions);invalidate()}renderAll();toast(additions.length+" students imported.")}catch(error){toast(error.message||"Could not import students CSV.")}input.value=""};reader.onerror=()=>{toast("Could not read students CSV.");input.value=""};reader.readAsText(file)}
+
+function parseCSVRows(text){
+ let rows=[],row=[],value="",quoted=false;
+ for(let i=0;i<text.length;i++){
+   const char=text[i];
+   if(quoted){
+     if(char==='"'&&text[i+1]==='"'){value+='"';i++}
+     else if(char==='"')quoted=false;
+     else value+=char;
+   }else if(char==='"')quoted=true;
+   else if(char===","){row.push(value);value=""}
+   else if(char==="\n"){row.push(value);if(row.some(cell=>cell.trim()))rows.push(row);row=[];value=""}
+   else if(char!=="\r")value+=char;
+ }
+ if(quoted)throw new Error("CSV contains an unclosed quote.");
+ row.push(value);if(row.some(cell=>cell.trim()))rows.push(row);
+ return rows;
+}
+function importRoomsCSV(e){
+ const input=e.target;
+ if(state.locked){toast("Unlock first.");input.value="";return}
+ const file=input.files[0];
+ if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+   try{
+     const rows=parseCSVRows(String(reader.result||""));
+     if(rows.length<2)throw new Error("CSV needs a header and at least one room.");
+     const headers=rows[0].map(cell=>cell.trim().replace(/^\uFEFF/,"").toLowerCase());
+     const findHeader=names=>headers.findIndex(header=>names.some(name=>header===name||header.startsWith(name+" ")));
+     const columns={
+       room:findHeader(["room","room name","room number"]),
+       level:findHeader(["level"]),
+       rows:findHeader(["rows"]),
+       teacher:findHeader(["teacher","invigilator"]),
+       runner:findHeader(["runner"]),
+       lhs:findHeader(["lhs"]),mhs:findHeader(["mhs"]),rhs:findHeader(["rhs"])
+     };
+     if([columns.room,columns.level,columns.lhs,columns.mhs,columns.rhs].some(index=>index<0))throw new Error("CSV needs Room, Level, LHS, MHS and RHS columns.");
+     const parsed=[],seen=new Set();
+     const deskList=(raw,line,area)=>{
+       if(!raw.trim())return [];
+       const values=raw.split(/[|;]/).map(value=>value.trim());
+       if(values.some(value=>! /^[0-3]$/.test(value)))throw new Error("Line "+line+": "+area+" must contain desk seat counts 0–3 separated by |.");
+       return values.map(Number);
+     };
+     for(let i=1;i<rows.length;i++){
+       const cells=rows[i],line=i+1,get=index=>index<0?"":String(cells[index]??"").trim();
+       const number=get(columns.room);
+       if(!number)throw new Error("Line "+line+": Room is required.");
+       const key=number.toLowerCase();
+       if(seen.has(key))throw new Error("Line "+line+": duplicate room name "+number+".");
+       seen.add(key);
+       const level=get(columns.level).replace(/^level\s*/i,"").replace(/[–—]/g,"-");
+       if(level!=="4-6"&&level!=="7-10")throw new Error("Line "+line+": Level must be 4-6 or 7-10.");
+       const lhs=deskList(get(columns.lhs),line,"LHS"),mhs=deskList(get(columns.mhs),line,"MHS"),rhs=deskList(get(columns.rhs),line,"RHS");
+       const rowValue=get(columns.rows),rowsCount=rowValue?Number(rowValue):Math.max(lhs.length,mhs.length,rhs.length,1);
+       if(!Number.isInteger(rowsCount)||rowsCount<1)throw new Error("Line "+line+": Rows must be a positive whole number.");
+       parsed.push(normalizeRoom({number,level,rows:rowsCount,teacherName:get(columns.teacher),runnerName:get(columns.runner),lhs:{deskSeats:lhs},mhs:{deskSeats:mhs},rhs:{deskSeats:rhs}}));
+     }
+     if((state.allocation.length||state.rooms.length)&&!saveAutomaticPlanBackup("Before importing room setup",state.currentLevel))throw new Error("Room import cancelled because the current plan and duties could not be backed up.");
+     const existingByName=new Map(state.rooms.map((room,index)=>[String(room.number).trim().toLowerCase(),index]));
+     let added=0,updated=0;
+     for(const room of parsed){
+       const index=existingByName.get(room.number.trim().toLowerCase());
+       if(index===undefined){state.rooms.push(room);added++}
+       else{room.id=state.rooms[index].id;state.rooms[index]=room;updated++}
+     }
+     invalidate();renderRooms();dashboard();
+     toast(added+" room(s) added, "+updated+" updated from CSV.");
+   }catch(error){toast(error.message||"Could not import rooms CSV.")}
+   input.value="";
+ };
+ reader.onerror=()=>{toast("Could not read rooms CSV.");input.value=""};
+ reader.readAsText(file);
+}
+
+function roomModal(id){let r=id?normalizeRoom(state.rooms.find(x=>x.id===id)):normalizeRoom({number:String(state.rooms.length+1),rows:4,lhs:{deskSeats:[1,1,1]},mhs:{deskSeats:[1,1,1]},rhs:{deskSeats:[1,1,1]}});$("modalbox").innerHTML=`<div class="toolbar"><h2>${id?"Edit":"Add"} Room</h2><span class="grow"></span><button class="close" onclick="closeModal()">×</button></div><div class="form"><div class="field"><label>Room Number</label><input id="rn" value="${esc(r.number)}"></div><div class="field"><label>Level</label><select id="rlevel"><option value="" ${!r.level?"selected":""}>Select Level</option><option value="4-6" ${r.level==="4-6"?"selected":""}>Level 4–6</option><option value="7-10" ${r.level==="7-10"?"selected":""}>Level 7–10</option></select></div><div class="field"><label>Rows</label><input id="rr" type="number" min=1 value="${r.rows}"></div><div class="field"><label>Room Teacher / Invigilator</label><input id="rt" value="${esc(r.teacherName)}"></div></div>${areaEditor("lhs","LHS",r.lhs.deskSeats,false)}${areaEditor("mhs","MHS",r.mhs.deskSeats,true)}${areaEditor("rhs","RHS",r.rhs.deskSeats,false)}<br><button class="btn primary" onclick="saveRoom('${id||""}')">Save Room</button>`;$("modal").classList.add("show")}
+function areaEditor(a,label,v,rem){return `<div class="room"><b>${label}</b><div class="field" style="width:130px;margin:5px 0"><label>Desks</label><input id="${a}n" type="number" min=0 max=100 value="${v.length}" oninput="rebuild('${a}',${rem})"></div><div id="${a}g" class="desks">${deskInputs(a,v,rem)}</div></div>`}
+function deskInputs(a,v,rem){return v.map((n,i)=>`<div><label>${a.toUpperCase()} Desk ${i+1}</label><select data-a="${a}"><option value=0 ${n==0?"selected":""}>0</option><option value=1 ${n==1?"selected":""}>1</option><option value=2 ${n==2?"selected":""}>2</option><option value=3 ${n==3?"selected":""}>3</option></select>${rem?`<button class="btn danger" style="width:100%;margin-top:3px" onclick="removeMHS(${i})">Remove Desk</button>`:""}</div>`).join("")}
+function vals(a){return [...document.querySelectorAll(`[data-a="${a}"]`)].map(x=>Number(x.value))}
+function rebuild(a,rem){let n=Math.max(0,Number($(a+"n").value)||0),old=vals(a),v=Array.from({length:n},(_,i)=>old[i]??1);$(a+"g").innerHTML=deskInputs(a,v,rem)}
+function removeMHS(i){let v=vals("mhs");v.splice(i,1);$("mhsn").value=v.length;$("mhsg").innerHTML=deskInputs("mhs",v,true)}
+function saveRoom(id){if(state.locked)return toast("Unlock first.");let r=normalizeRoom({id:id||uid(),number:$("rn").value.trim(),rows:Number($("rr").value)||1,teacherName:$("rt").value.trim(),level:$("rlevel").value,lhs:{deskSeats:vals("lhs")},mhs:{deskSeats:vals("mhs")},rhs:{deskSeats:vals("rhs")}});if(!r.number)return toast("Room number required.");if(state.rooms.some(x=>x.number===r.number&&x.id!==r.id))return toast("Duplicate room number.");if(state.allocation.length&&!saveAutomaticPlanBackup("Before changing room setup",state.currentLevel))return;state.rooms=id?state.rooms.map(x=>x.id===id?r:x):[...state.rooms,r];invalidate();closeModal();renderRooms();dashboard();toast("Room saved.")}
+function renderRooms(){$("rooms").innerHTML=state.rooms.map(r=>{r=normalizeRoom(r);return `<div class="room"><div class="roomhead"><div><b>Room ${esc(r.number)}</b><div class="muted"><span class="badge">${r.level?"Level "+esc(r.level):"LEVEL NOT SET"}</span> ${r.teacherName?"Invigilator: "+esc(r.teacherName)+" • ":""}${r.rows} rows • ${desks(r)} desks • Capacity ${capacity(r)}</div></div><div><button class="btn" onclick="roomModal('${r.id}')">Edit</button> <button class="btn danger" onclick="deleteRoom('${r.id}')">Delete</button></div></div><div class="areas">${["lhs","mhs","rhs"].map(a=>`<div class="area"><b>${a.toUpperCase()}</b><div class="desks">${r[a].deskSeats.map((n,i)=>`<span class="badge">D${i+1}: ${n} seat(s)</span>`).join("")||"<span class=muted>No desks</span>"}</div></div>`).join("")}</div></div>`}).join("")||"<div class='alert'>No rooms.</div>"}
+function renderDutyRoster(){const container=$("dutyRoster");if(!container)return;container.innerHTML=state.rooms.length?`<div class="tablewrap"><table><thead><tr><th>Room</th><th>Level</th><th>Invigilator</th><th>Runner</th><th>Allocated / Capacity</th></tr></thead><tbody>${state.rooms.map(room=>{let count=state.allocation.filter(item=>item.roomId===room.id||String(item.roomNumber)===String(room.number)).length;return `<tr><td><b>${esc(room.number)}</b></td><td>${esc(room.level||"Not set")}</td><td><input aria-label="Invigilator for Room ${esc(room.number)}" value="${esc(room.teacherName||"")}" placeholder="Enter teacher name" onchange="assignRoomDuty('${esc(room.id)}','teacherName',this.value)"></td><td><input aria-label="Runner for Room ${esc(room.number)}" value="${esc(room.runnerName||"")}" placeholder="Enter runner name" onchange="assignRoomDuty('${esc(room.id)}','runnerName',this.value)"></td><td>${count} / ${capacity(room)}</td></tr>`}).join("")}</tbody></table></div>`:"<div class='alert'>Add rooms before assigning duty.</div>"}
+function assignRoomDuty(roomId,role,name){if(state.locked){renderDutyRoster();return toast("Unlock first.");}if(role!=="teacherName"&&role!=="runnerName")return toast("Invalid duty role.");const room=state.rooms.find(item=>item.id===roomId);if(!room)return toast("Room not found.");const value=String(name||"").trim();if(room[role]===value)return; if(!saveAutomaticPlanBackup("Before editing room duty assignments",state.currentLevel))return;room[role]=value;save();renderAll()}
+function assignInvigilator(roomId,name){assignRoomDuty(roomId,"teacherName",name)}
+function applyBulkDutyAssignments(){if(state.locked)return toast("Unlock first.");const text=$("dutyBulk").value.trim();if(!text)return toast("Paste room and duty assignments first.");let rows;try{rows=parseCSVRows(text)}catch(error){return toast(error.message||"Could not read duty assignments.")}if(rows.length&&rows[0].length===1&&rows[0][0].includes("\t"))rows=rows.map(row=>row[0].split("\t"));if(rows.length&&rows.some(row=>row.length===1)&&text.includes("\t"))rows=text.split(/\r?\n/).filter(line=>line.trim()).map(line=>line.split("\t"));if(!rows.length)return toast("Paste room and duty assignments first.");const first=rows[0].map(value=>String(value||"").trim().toLowerCase());if(first[0]==="room"||first[0]==="room number")rows=rows.slice(1);if(!rows.length)return toast("No duty assignment rows found.");const seen=new Set(),updates=[];for(let index=0;index<rows.length;index++){const cells=rows[index].map(value=>String(value??"").trim()),roomName=cells[0],room=state.rooms.find(item=>String(item.number).trim().toLowerCase()===roomName.toLowerCase());if(!room)return toast("Row "+(index+1)+": room '"+roomName+"' was not found.");const key=room.id;if(seen.has(key))return toast("Room "+roomName+" appears more than once.");if(cells.length>3&&cells.slice(3).some(value=>value))return toast("Row "+(index+1)+": use Room, Invigilator, Runner.");if(!cells[1]&&!cells[2])return toast("Row "+(index+1)+": enter an invigilator or runner.");seen.add(key);updates.push({room,teacherName:cells[1]||"",runnerName:cells[2]||""})}if(updates.some(({room,teacherName,runnerName})=>room.teacherName!==teacherName||room.runnerName!==runnerName)&&!saveAutomaticPlanBackup("Before bulk room duty assignments",state.currentLevel))return;updates.forEach(({room,teacherName,runnerName})=>{room.teacherName=teacherName;room.runnerName=runnerName});save();renderAll();$("dutyBulk").value="";toast(updates.length+" room duty assignment(s) saved.")}
+function printDutyRoster(){const rows=state.rooms.map(room=>{const count=state.allocation.filter(item=>item.roomId===room.id||String(item.roomNumber)===String(room.number)).length;return `<tr><td>${esc(room.number)}</td><td>${esc(room.level||"")}</td><td>${esc(room.teacherName||"Not assigned")}</td><td>${esc(room.runnerName||"Not assigned")}</td><td>${count} / ${capacity(room)}</td><td></td></tr>`}).join("");const body=`<div class="duty-print-title"><h2>${esc(state.setup.schoolName)}</h2><b>INVIGILATOR DUTY ROSTER</b><div>${esc(state.setup.examName)} • ${esc(state.setup.examDate||"Date not set")} • ${esc(state.setup.examTime||"")}<br>Printed ${esc(new Date().toLocaleString())}</div></div><table style="width:100%;border-collapse:collapse"><thead><tr><th>Room</th><th>Level</th><th>Invigilator</th><th>Runner</th><th>Allocated / Capacity</th><th>Signature</th></tr></thead><tbody>${rows||"<tr><td colspan='6'>No rooms assigned.</td></tr>"}</tbody></table>`;openPrint(body,"Invigilator Duty Roster","portrait")}
+function deleteRoom(id){if(state.locked)return toast("Unlock first.");if(confirm("Delete room?")){if(state.allocation.length&&!saveAutomaticPlanBackup("Before deleting a room",state.currentLevel))return;state.rooms=state.rooms.filter(x=>x.id!==id);invalidate();renderRooms();dashboard()}}
+function makeDeskRuns(seatCount,includeMiddle=true){
+ let seats=Math.max(0,Number(seatCount)||0),shortDesks=seats===1?1:(seats*2)%3,longDesks=seats===1?0:(seats-shortDesks*2)/3;
+ const runs=[[],[],[]];
+ const areas=includeMiddle?[0,1,2]:[0,2];
+ const addDesk=size=>{
+   const area=areas.reduce((best,index)=>
+     runs[index].reduce((sum,desk)=>sum+desk,0)<runs[best].reduce((sum,desk)=>sum+desk,0)?index:best,areas[0]);
+   runs[area].push(size);
+ };
+ for(let i=0;i<shortDesks;i++)addDesk(2);
+ for(let i=0;i<longDesks;i++)addDesk(3);
+ return runs;
+}
+function addSevenToTenRooms(){
+ if(state.locked)return toast("Unlock first.");
+ const plan=[
+   {number:"10 Moon",capacity:34},{number:"10 Star",capacity:30},
+   {number:"9 Moon",capacity:33},{number:"9 Star",capacity:33},
+   {number:"8 Moon",capacity:30},{number:"8 Star",capacity:27},{number:"8 Earth",capacity:29},
+   {number:"7 Moon",capacity:27},{number:"7 Star",capacity:20},{number:"7 Earth",capacity:38}
+ ];
+ const oldRoomNames=new Set(["10","9","8","7"]);
+ const oldPlanRooms=state.rooms.filter(room=>room.level==="7-10"&&oldRoomNames.has(String(room.number)));
+ const replacesOldPlan=oldPlanRooms.length===4&&state.rooms.filter(room=>room.level==="7-10").length===4;
+ const addsPlanRoom=plan.some(room=>!state.rooms.some(existing=>String(existing.number).toLowerCase()===room.number.toLowerCase()));
+ if((replacesOldPlan||addsPlanRoom)&&(state.rooms.length||state.allocation.some(item=>(item.level||studentLevel(item))==="7-10"))&&!saveAutomaticPlanBackup("Before changing Level 7–10 rooms","7-10"))return;
+ if(replacesOldPlan){
+   const oldIds=new Set(oldPlanRooms.map(room=>room.id));
+   state.rooms=state.rooms.filter(room=>!oldIds.has(room.id));
+ }
+ let added=0;
+ for(const room of plan){
+   if(state.rooms.some(existing=>String(existing.number).toLowerCase()===room.number.toLowerCase()))continue;
+   const section=room.number.toLowerCase().replace(" ","|");
+   const rosterCount=state.students.filter(student=>studentLevel(student)==="7-10"&&
+     (String(classNumber(student.className))+"|"+String(student.section).trim().toLowerCase())===section).length;
+  const deskRuns=makeDeskRuns(rosterCount||room.capacity,room.number.toLowerCase()==="7 earth");
+   state.rooms.push(normalizeRoom({
+     number:room.number,
+     level:"7-10",
+     rows:Math.max(...deskRuns.map(run=>run.length)),
+     lhs:{deskSeats:deskRuns[0]},
+     mhs:{deskSeats:deskRuns[1]},
+     rhs:{deskSeats:deskRuns[2]}
+   }));
+   added++;
+ }
+ if(!added)return toast("All 10 7–10 section rooms already exist.");
+ state.allocation=state.allocation.filter(item=>(item.level||studentLevel(item))!=="7-10");
+ state.locked=false;
+ save();
+ renderRooms();
+ dashboard();
+ toast(added+" 7–10 plan room(s) added.");
+}
+
+function getSelectedLevel(){
+  return $("planLevel")?.value==="7-10" ? "7-10" : "4-6";
+}
+function classNumber(className){
+  let m=String(className??"").match(/\b(10|[4-9])\b/);
+  return m?Number(m[1]):null;
+}
+function studentLevel(s){
+  let n=classNumber(s.className);
+  return n>=4&&n<=6 ? "4-6" : n>=7&&n<=10 ? "7-10" : "";
+}
+function generate(){
+  if(state.locked)return toast("Unlock first.");
+  if(!state.students.length)return toast("No students.");
+  if(!state.rooms.length)return toast("No rooms.");
+
+  let level=getSelectedLevel();
+  let levelStudents=state.students.filter(s=>studentLevel(s)===level);
+  let levelRooms=state.rooms.filter(r=>normalizeRoom(r).level===level);
+
+  if(!levelStudents.length)return toast("No students found for Level "+level+".");
+  if(!levelRooms.length)return toast("No rooms assigned to Level "+level+". Assign room levels first.");
+
+  let cap=levelRooms.reduce((x,r)=>x+capacity(r),0);
+  if(cap<levelStudents.length)return toast("Level "+level+" capacity is insufficient by "+(levelStudents.length-cap)+" seat(s).");
+
+  let groupKey=s=>String(s.className);
+  let rooms=[...levelRooms];
+  let arr=[...levelStudents];
+  let studentsByRoomClass=null;
+  let classRank=new Map();
+  const rules=state.rules[level];
+  const rotationIndex=Math.max(0,Number(state.rotationCount)||0);
+  const rotateStart=level==="7-10"&&rules.rotateStart;
+  const compareSymbols=(a,b)=>String(a.symbol).localeCompare(String(b.symbol),undefined,{numeric:true,sensitivity:"base"});
+  if(level==="7-10"){
+    const roomOrder=["10 Moon","10 Star","9 Moon","9 Star","8 Moon","8 Star","8 Earth","7 Moon","7 Star","7 Earth"];
+    const roomByName=new Map(levelRooms.map(room=>[String(room.number).trim().toLowerCase(),room]));
+    rooms=roomOrder.map(name=>roomByName.get(name.toLowerCase())).filter(Boolean);
+    if(rooms.length!==roomOrder.length)return toast("Add all 10 section rooms before generating this allocation.");
+    if(rotateStart&&rooms.length){
+      const roomOffset=rotationIndex%rooms.length;
+      rooms=[...rooms.slice(roomOffset),...rooms.slice(0,roomOffset)];
+    }
+    let groups=new Map();
+    studentsByRoomClass=new Map(rooms.map(room=>[String(room.number),new Map()]));
+    let roomSeatsRemaining=new Map(rooms.map(room=>[String(room.number),capacity(room)]));
+    arr.forEach(student=>{let key=String(classNumber(student.className)??student.className);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(student)});
+    let orderedGroups=[...groups.entries()].sort((a,b)=>Number(a[0])-Number(b[0]));
+    if(rotateStart&&orderedGroups.length){
+      const classOffset=rotationIndex%orderedGroups.length;
+      orderedGroups=[...orderedGroups.slice(classOffset),...orderedGroups.slice(0,classOffset)];
+    }
+    classRank=new Map(orderedGroups.map(([classKey],index)=>[classKey,index]));
+    for(const [classKey,group] of orderedGroups){
+      if(group.length<rooms.length)return toast("Class "+classKey+" needs at least one student for each room.");
+      if(rules.symbolOrder)group.sort(compareSymbols);
+      const totalWeight=rooms.reduce((sum,room)=>sum+roomSeatsRemaining.get(String(room.number)),0);
+      if(group.length>totalWeight)return toast("Room capacity is insufficient for Class "+classKey+".");
+      const shares=rooms.map((room,index)=>{
+        const exact=group.length*roomSeatsRemaining.get(String(room.number))/totalWeight;
+        const count=Math.floor(exact);
+        return {room,count,remainder:exact-count,index};
+      });
+      let extras=group.length-shares.reduce((sum,share)=>sum+share.count,0);
+      [...shares].sort((a,b)=>b.remainder-a.remainder||a.index-b.index).slice(0,extras).forEach(share=>share.count++);
+      let start=0;
+      for(const share of shares){
+        studentsByRoomClass.get(String(share.room.number)).set(classKey,group.slice(start,start+share.count));
+        roomSeatsRemaining.set(String(share.room.number),roomSeatsRemaining.get(String(share.room.number))-share.count);
+        start+=share.count;
+      }
+    }
+    if(rules.symbolOrder)for(const room of rooms)for(const students of studentsByRoomClass.get(String(room.number)).values())students.sort(compareSymbols);
+    arr=rooms.flatMap(room=>[...studentsByRoomClass.get(String(room.number)).values()].flat());
+  }else if(rules.spreadClasses){
+    let groups=new Map();
+    arr.forEach(s=>{let key=groupKey(s);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(s)});
+    if(rules.symbolOrder)for(const group of groups.values())group.sort(compareSymbols);
+    let keys=[...groups.keys()],more=true; arr=[];
+    while(more){
+      more=false;
+      for(const k of keys) if(groups.get(k).length){arr.push(groups.get(k).shift());more=true;}
+    }
+  }else if(rules.symbolOrder)arr.sort(compareSymbols);
+
+  let slots=[];
+  if(level==="7-10"){
+    for(const room of rooms){
+      const normalized=normalizeRoom(room);
+      const areas=["lhs","mhs","rhs"];
+      const maxDesks=Math.max(...areas.map(area=>normalized[area].deskSeats.length));
+      for(let index=0;index<maxDesks;index++){
+        for(const area of areas){
+          const deskCapacity=normalized[area].deskSeats[index];
+          if(Number(deskCapacity)>0)slots.push({room:normalized,area,desk:index+1,capacity:Number(deskCapacity),row:index+1});
+        }
+      }
+    }
+  }else if(level==="4-6"&&rules.rotateRooms&&rooms.length){
+    let st=(String(state.setup.seed).length+new Date().getDate())%rooms.length;
+    rooms=[...rooms.slice(st),...rooms.slice(0,st)];
+  }
+
+  if(level!=="7-10")rooms.forEach(r0=>{
+      let r=normalizeRoom(r0);
+      ["lhs","mhs","rhs"].forEach(a=>{
+        r[a].deskSeats.forEach((c,i)=>{
+          if(Number(c)>0)slots.push({room:r,area:a,desk:i+1,capacity:Number(c),row:i+1});
+        });
+      });
+    });
+
+  let out=[],idx=0;
+  if(level==="7-10"){
+    for(const d of slots){
+      const roomGroups=studentsByRoomClass.get(String(d.room.number));
+      const atDesk=[],classesAtDesk=new Set();
+      while(atDesk.length<d.capacity){
+        const candidates=[...roomGroups.entries()].filter(([classKey,students])=>students.length&&(!rules.separateClasses||!classesAtDesk.has(classKey)));
+        if(!candidates.length)break;
+        candidates.sort((a,b)=>b[1].length-a[1].length||(rotateStart?classRank.get(a[0])-classRank.get(b[0]):rules.symbolOrder?compareSymbols(a[1][0],b[1][0]):0));
+        const [classKey,students]=candidates[0];
+        atDesk.push(students.shift());
+        classesAtDesk.add(classKey);
+      }
+      if(rules.symbolOrder)atDesk.sort(compareSymbols);
+      atDesk.forEach((student,seat)=>out.push({
+        studentId:student.id,symbol:student.symbol,name:student.name,className:student.className,
+        section:student.section,stream:student.stream||"",level,
+        roomId:d.room.id,roomNumber:d.room.number,row:d.row,area:d.area,desk:d.desk,seat:seat+1
+      }));
+      idx+=atDesk.length;
+    }
+  }else{
+    let remaining=[...arr];
+    const remainingByClass=new Map();
+    remaining.forEach(student=>{
+      const key=groupKey(student);
+      remainingByClass.set(key,(remainingByClass.get(key)||0)+1);
+    });
+    for(const d of slots){
+      const classesAtDesk=new Set();
+      for(let seat=1;seat<=d.capacity;seat++){
+        let candidateIndex=-1;
+        let largestClassCount=-1;
+        for(let i=0;i<remaining.length;i++){
+          const key=groupKey(remaining[i]);
+          if(classesAtDesk.has(key))continue;
+          const count=remainingByClass.get(key)||0;
+          if(count>largestClassCount){
+            candidateIndex=i;
+            largestClassCount=count;
+          }
+        }
+        if(candidateIndex<0)break;
+        const st=remaining.splice(candidateIndex,1)[0];
+        const key=groupKey(st);
+        classesAtDesk.add(key);
+        remainingByClass.set(key,remainingByClass.get(key)-1);
+        out.push({
+          studentId:st.id,symbol:st.symbol,name:st.name,className:st.className,
+          section:st.section,stream:st.stream||"",level,
+          roomId:d.room.id,roomNumber:d.room.number,row:d.row,area:d.area,desk:d.desk,seat
+        });
+      }
+      if(!remaining.length)break;
+    }
+    arr=remaining;
+  }
+  const unallocatedCount=level==="7-10"?arr.length-idx:arr.length;
+  if(unallocatedCount){
+    if(level==="4-6"){
+      const classCounts=new Map();
+      levelStudents.forEach(student=>classCounts.set(groupKey(student),(classCounts.get(groupKey(student))||0)+1));
+      const largest=[...classCounts.entries()].sort((a,b)=>b[1]-a[1])[0];
+      const deskCount=slots.length;
+      if(largest&&largest[1]>deskCount)return toast("Cannot separate Class "+largest[0]+": "+largest[1]+" students need different desks, but only "+deskCount+" usable desks are configured for Level 4–6.");
+    }
+    return toast("Desk capacity or class separation left "+unallocatedCount+" student(s) without a seat. Adjust room desks.");
+  }
+
+  if(state.allocation.some(a=>(a.level||studentLevel(a))===level)&&!saveAutomaticPlanBackup("Before regenerating Level "+level,level))return;
+  state.allocation=[...state.allocation.filter(a=>(a.level||studentLevel(a))!==level),...out];
+  if(level==="7-10")state.rotationCount=rotateStart?rotationIndex+1:rotationIndex;
+  state.currentLevel=level;
+  save();
+  repairLegacyAllocation();
+  renderAll();
+  showPage("preview");
+  toast("Level "+level+" seat plan generated.");
+}
+function roomMap(r){
+ let m={};
+ state.allocation.filter(a=>{
+   return a.roomId===r.id || String(a.roomNumber)===String(r.number);
+ }).forEach(a=>{
+   let key=[String(a.area||"").toLowerCase(),Number(a.desk)||0].join("|");
+   (m[key]??=[]).push(a);
+ });
+ Object.values(m).forEach(v=>v.sort((a,b)=>(Number(a.seat)||0)-(Number(b.seat)||0)));
+ return m;
+}
+
+function createRoomVisual(r,forPrint=false){
+ r=normalizeRoom(r);
+ let m=roomMap(r);
+ let classCounts={};
+ state.allocation.filter(a=>a.roomId===r.id||String(a.roomNumber)===String(r.number)).forEach(a=>{
+   let key=[String(a.className??""),String(a.section??"")].join("|");
+   classCounts[key]=(classCounts[key]||0)+1;
+ });
+ let classSummary=Object.entries(classCounts).sort(([a],[b])=>a.localeCompare(b,undefined,{numeric:true})).map(([key,count])=>{
+   let [className,section]=key.split("|");
+   return `<span class="badge">Class ${esc(className)}${section?` / ${esc(section)}`:""}: ${count} student(s)</span>`;
+ }).join("");
+ let s=`<div class="${forPrint?"print-room":"roomvisual"}"><div class="${forPrint?"print-title":"front"}">${forPrint?`<b>${esc(state.setup.schoolName)}</b><br>Level ${esc(r.level||state.currentLevel||"")} • Room ${esc(r.number)} • ${esc(state.setup.examName)}<br>Invigilator: ${esc(r.teacherName||"Not assigned")} • Runner: ${esc(r.runnerName||"Not assigned")}`:"FRONT / BOARD"}</div>${forPrint?"":`<h3 class="roomtitle">Room ${esc(r.number)}${r.teacherName?" • "+esc(r.teacherName):""}${r.runnerName?" • Runner: "+esc(r.runnerName):""}</h3>`}<div class="room-class-counts"><strong>Students by class / section:</strong>${classSummary||'<span class="muted">No allocated students</span>'}</div><table class="print-area-table"><thead><tr><th>LHS</th><th>MHS</th><th>RHS</th></tr></thead><tbody>`;
+
+ /* Every configured desk is rendered exactly once.
+    LHS/MHS/RHS are the three columns; desk number is the row index.
+    This deliberately does NOT depend on the room's "rows" field. */
+ let maxDesks=Math.max(
+   r.lhs.deskSeats.length,
+   r.mhs.deskSeats.length,
+   r.rhs.deskSeats.length,
+   0
+ );
+
+ for(let i=0;i<maxDesks;i++){
+   s+=`<tr>`;
+   for(const a of ["lhs","mhs","rhs"]){
+     s+=`<td>`;
+     let c=r[a].deskSeats[i];
+
+     if(c===undefined){
+       s+=`<div class="print-seat print-empty">—</div>`;
+     }else{
+       c=Number(c)||0;
+       let assigned=m[[a,i+1].join("|")]||[];
+       s+=`<div class="print-desk"><div class="print-desk-title">${a.toUpperCase()} • Desk ${i+1} • ${c} seat(s)</div>`;
+       s+=`<div class="desk-seats">`;
+
+       for(let seat=1;seat<=c;seat++){
+         let x=assigned.find(z=>Number(z.seat)===seat);
+         let symbolParts=x?String(x.symbol).split("-"):[];
+         let displaySymbol=symbolParts.length>=2?symbolParts.slice(-2).join("-"):x?.symbol;
+         let seatingNote=x?state.students.find(student=>student.id===x.studentId)?.seatingNote:"";
+         s+=x
+           ? `<div class="print-seat"><b>${esc(displaySymbol)}</b> - ${esc(x.name)}<br>Class ${esc(x.className)} - ${esc(x.section)}${seatingNote?`<small class="access-note">Seating: ${esc(seatingNote)}</small>`:""}</div>`
+           : `<div class="print-seat print-empty">EMPTY</div>`;
+       }
+       s+=`</div></div>`;
+     }
+     s+=`</td>`;
+   }
+   s+=`</tr>`;
+ }
+
+ s+=`</tbody></table></div>`;
+ return s;
+}
+
+function renderPreview(){if($("whatsappGroupLink"))$("whatsappGroupLink").value=state.setup.whatsappGroupLink||"";$("preview").innerHTML=state.allocation.length?state.rooms.map(room=>`<div class="room-share-controls no-print"><b>Room ${esc(room.number)}</b><span class="grow"></span><button class="btn blue" onclick="downloadRoomSeatPlanJPEG('${esc(room.id)}')">Download Room JPEG</button><button class="btn primary" onclick="shareRoomSeatPlan('${esc(room.id)}')">Share Room JPEG / WhatsApp</button></div>${createRoomVisual(room,false)}`).join(""):"<div class='alert'>Generate the plan first.</div>"}
+function saveWhatsAppGroupLink(value){const link=String(value||"").trim();if(link&&!/^https:\/\/chat\.whatsapp\.com\/[A-Za-z0-9]+\/?$/i.test(link)){toast("Enter a valid WhatsApp group invite link (https://chat.whatsapp.com/…).");$("whatsappGroupLink").value=state.setup.whatsappGroupLink||"";return}state.setup.whatsappGroupLink=link;save();toast("WhatsApp group link saved.")}
+function roomSeatPlanCanvas(room){
+ const normalized=normalizeRoom(room),maxDesks=Math.max(normalized.lhs.deskSeats.length,normalized.mhs.deskSeats.length,normalized.rhs.deskSeats.length),width=1500,rowHeight=108,top=220,height=top+Math.max(1,maxDesks)*rowHeight+45,canvas=document.createElement("canvas");canvas.width=width;canvas.height=height;const context=canvas.getContext("2d");if(!context)throw new Error("Could not create room plan image.");context.fillStyle="#fff";context.fillRect(0,0,width,height);context.fillStyle="#173f2d";context.textAlign="center";context.font="bold 40px Arial";context.fillText(state.setup.schoolName||"Examination Seat Plan",width/2,55);context.font="bold 30px Arial";context.fillText(`ROOM ${normalized.number} • LEVEL ${normalized.level||""}`,width/2,100);context.font="22px Arial";context.fillText(`${state.setup.examName||""} • ${state.setup.examDate||""} • ${state.setup.examTime||""}`,width/2,140);context.font="18px Arial";context.fillText(`Invigilator: ${normalized.teacherName||"Not assigned"} • Runner: ${normalized.runnerName||"Not assigned"}`,width/2,174);context.font="16px Arial";context.fillText(`Capacity: ${capacity(normalized)} • Printed: ${new Date().toLocaleString()}`,width/2,200);context.fillStyle="#173f2d";context.fillRect(45,213,width-90,7);const margin=45,gap=16,colWidth=(width-margin*2-gap*2)/3,areaNames=["lhs","mhs","rhs"],allocations=state.allocation.filter(item=>item.roomId===normalized.id||String(item.roomNumber)===String(normalized.number));for(let areaIndex=0;areaIndex<areaNames.length;areaIndex++){const area=areaNames[areaIndex],areaX=margin+areaIndex*(colWidth+gap);context.fillStyle="#edf5f0";context.fillRect(areaX,top-35,colWidth,28);context.strokeStyle="#9bb6a7";context.strokeRect(areaX,top-35,colWidth,28);context.fillStyle="#18382c";context.font="bold 18px Arial";context.fillText(area.toUpperCase(),areaX+colWidth/2,top-15);for(let deskIndex=0;deskIndex<normalized[area].deskSeats.length;deskIndex++){const deskY=top+deskIndex*rowHeight,count=Number(normalized[area].deskSeats[deskIndex])||0;context.fillStyle="#f7faf8";context.fillRect(areaX,deskY,colWidth,rowHeight-8);context.strokeStyle="#8ca99a";context.strokeRect(areaX,deskY,colWidth,rowHeight-8);context.fillStyle="#edf5f0";context.fillRect(areaX,deskY,colWidth,25);context.fillStyle="#18382c";context.textAlign="center";context.font="bold 15px Arial";context.fillText(`Desk ${deskIndex+1} • ${count} seat(s)`,areaX+colWidth/2,deskY+18);if(!count){context.font="14px Arial";context.fillText("Not configured",areaX+colWidth/2,deskY+60);continue}const cellWidth=colWidth/count;for(let seat=1;seat<=count;seat++){const cellX=areaX+(seat-1)*cellWidth;context.strokeStyle="#bacbc1";context.strokeRect(cellX,deskY+25,cellWidth,rowHeight-33);const assigned=allocations.find(item=>String(item.area).toLowerCase()===area&&Number(item.desk)===deskIndex+1&&Number(item.seat)===seat);context.textAlign="left";context.fillStyle=assigned?"#18382c":"#738078";context.font="bold 14px Arial";context.fillText(assigned?String(assigned.symbol||"").slice(-12):"EMPTY",cellX+7,deskY+47);context.font="13px Arial";const label=assigned?String(assigned.name||""):"Available";const words=label.split(/\s+/);let line="",lineY=deskY+66,maxWidth=cellWidth-14;for(const word of words){const candidate=line?line+" "+word:word;if(context.measureText(candidate).width>maxWidth&&line){context.fillText(line,cellX+7,lineY);line=word;lineY+=16;if(lineY>deskY+98)break}else line=candidate}if(line&&lineY<=deskY+98)context.fillText(line,cellX+7,lineY);const note=assigned&&state.students.find(student=>student.id===assigned.studentId)?.seatingNote;if(note){context.fillStyle="#875d00";context.font="11px Arial";context.fillText(("Note: "+note).slice(0,Math.max(8,Math.floor(maxWidth/6))),cellX+7,deskY+95)}}}}return canvas}
+function canvasJPEG(canvas){return new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("Could not create JPEG image.")),"image/jpeg",0.92))}
+function downloadBlob(blob,filename){const url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download=filename;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function roomImageFilename(room){return `seat-plan-room-${String(room.number).replace(/[^a-z0-9_-]+/gi,"-")}.jpg`}
+async function downloadRoomSeatPlanJPEG(roomId){const room=state.rooms.find(item=>item.id===roomId);if(!room)return toast("Room not found.");try{downloadBlob(await canvasJPEG(roomSeatPlanCanvas(room)),roomImageFilename(room));toast("Room seat plan JPEG downloaded.")}catch(error){toast(error.message||"Could not export room JPEG.")}}
+async function shareRoomSeatPlan(roomId){const room=state.rooms.find(item=>item.id===roomId);if(!room)return toast("Room not found.");try{const file=new File([await canvasJPEG(roomSeatPlanCanvas(room))],roomImageFilename(room),{type:"image/jpeg"}),groupLink=String(state.setup.whatsappGroupLink||"").trim(),text=`${state.setup.examName||"Exam seat plan"} — Room ${room.number}${state.setup.examDate?" • "+state.setup.examDate:""}${groupLink?"\nWhatsApp group: "+groupLink:""}`;if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:`Seat Plan — Room ${room.number}`,text});toast("Room JPEG shared. Choose the WhatsApp group in the share sheet.")}else{downloadBlob(file,roomImageFilename(room));const whatsappURL="https://wa.me/?text="+encodeURIComponent(text);window.open(whatsappURL,"_blank","noopener");toast("JPEG downloaded. Attach it in the WhatsApp chat; the message includes the group invite link.")}}catch(error){if(error.name==="AbortError")return;toast(error.message||"Could not share room JPEG.")}}
+function roomAllocationHTML(r){
+ let counts={};
+ state.allocation.filter(a=>a.roomId===r.id||String(a.roomNumber)===String(r.number)).forEach(a=>{
+   let key=String(a.className??"");
+   counts[key]=(counts[key]||0)+1;
+ });
+ let rows=Object.entries(counts).sort(([a],[b])=>a.localeCompare(b,undefined,{numeric:true})).map(([className,count])=>
+   `<tr><td>Class ${esc(className)}</td><td>${count}</td></tr>`
+ ).join("");
+ return `<div class="room"><h2>Room ${esc(r.number)}${r.teacherName?" • "+esc(r.teacherName):""}</h2>${rows?`<div class="tablewrap"><table><thead><tr><th>Class</th><th>Number of Students</th></tr></thead><tbody>${rows}</tbody></table></div>`:"<div class='muted'>No allocated students.</div>"}</div>`;
+}
+function renderRoomAlloc(){$("roomalloc").innerHTML=state.rooms.map(roomAllocationHTML).join("")||"<div class='alert'>No rooms.</div>"}
+function printRoomAllocation(){openPrint(`<div class="room-allocation-print">${state.rooms.map(roomAllocationHTML).join("")}</div>`,"Room-wise Allocation","landscape")}
+function renderSearch(){let q=($("find")?.value||"").toLowerCase();let a=state.students.filter(s=>[s.symbol,s.name,s.className,s.section,s.seatingNote].join(" ").toLowerCase().includes(q));$("results").innerHTML=a.map(s=>{let x=state.allocation.find(a=>a.studentId===s.id);return `<div class="card"><b>${esc(s.symbol)}</b> - ${esc(s.name)} • Class ${esc(s.className)}-${esc(s.section)}${s.seatingNote?`<span class="access-note">Accessible seating: ${esc(s.seatingNote)}</span>`:""}<br><br>${x?`<span class="badge">Room ${esc(x.roomNumber)} • ${String(x.area||"").toUpperCase()} Desk ${esc(x.desk)} • Seat ${esc(x.seat)}</span> <button class="btn" onclick="openSeatMove('${esc(s.id)}')">Change Seat</button>`:`<span class="badge" style="background:#fff0ef;color:#b02e23">Not Allocated</span>`}</div>`}).join("")||"<div class='muted'>No result.</div>"}
+function openSeatMove(studentId){if(state.locked)return toast("Unlock first.");const allocation=state.allocation.find(item=>item.studentId===studentId);if(!allocation)return toast("Student has no allocated seat.");const room=state.rooms.find(item=>item.id===allocation.roomId)||state.rooms.find(item=>String(item.number)===String(allocation.roomNumber));if(!room)return toast("Student's assigned room was not found.");pendingSeatMove={studentId,roomId:room.id,area:String(allocation.area||"").toLowerCase(),desk:Number(allocation.desk),seat:Number(allocation.seat)};const student=state.students.find(item=>item.id===studentId);const columns=["lhs","mhs","rhs"].map(area=>`<div class="area"><b>${area.toUpperCase()}</b>${room[area].deskSeats.map((count,index)=>{const desk=index+1,students=state.allocation.filter(item=>(item.roomId===room.id||String(item.roomNumber)===String(room.number))&&String(item.area).toLowerCase()===area&&Number(item.desk)===desk);return `<div class="room" style="padding:7px"><b>Desk ${desk} • ${count} seat(s)</b><div class="seatmap-seats">${Array.from({length:Number(count)||0},(_,seatIndex)=>{const seat=seatIndex+1,occupant=students.find(item=>Number(item.seat)===seat),isCurrent=occupant?.studentId===studentId,available=!occupant;return `<button type="button" class="seatmap-seat ${isCurrent?"selected":""} ${available?"available":""}" ${available?`onclick="selectSeatMoveSpot('${esc(room.id)}','${area}',${desk},${seat})"`:"disabled"} aria-label="${isCurrent?"Current seat":available?"Available seat":"Occupied seat"} ${seat}">Seat ${seat}<br><b>${isCurrent?"CURRENT":available?"AVAILABLE":esc(occupant.symbol)}</b>${occupant?`<span>${esc(occupant.name)}</span>`:""}</button>`}).join("")||'<span class="muted">No usable seats</span>'}</div></div>`}).join("")||'<div class="muted">No desks configured.</div>'}</div>`).join("");$("modalbox").innerHTML=`<div class="toolbar"><h2>Move ${esc(student?.name||allocation.name)} within Room ${esc(room.number)}</h2><span class="grow"></span><button class="close" onclick="closeModal()">×</button></div><p class="muted">Click an available seat, like selecting an empty square in a board game. This move stays in this room; occupied seats cannot be selected.</p><div class="alert">Current seat: ${String(allocation.area||"").toUpperCase()} Desk ${esc(allocation.desk)} • Seat ${esc(allocation.seat)}. Moving to a different desk is allowed; students are never swapped automatically.</div><div id="selectedMoveSeat" class="badge">Select a green available seat.</div><div class="areas seatmap-areas">${columns}</div><button id="saveMoveSeat" class="btn primary" style="margin-top:10px" onclick="saveSeatMove('${esc(studentId)}')" disabled>Save Seat Change</button>`;$("modal").classList.add("show")}
+function selectSeatMoveSpot(roomId,area,desk,seat){if(!pendingSeatMove||pendingSeatMove.roomId!==roomId)return;const occupied=state.allocation.some(item=>item.studentId!==pendingSeatMove.studentId&&(item.roomId===roomId||String(item.roomNumber)===String(state.rooms.find(room=>room.id===roomId)?.number))&&String(item.area).toLowerCase()===area&&Number(item.desk)===desk&&Number(item.seat)===seat);if(occupied)return toast("That seat is no longer available.");pendingSeatMove={...pendingSeatMove,area,desk,seat};$("selectedMoveSeat").textContent=`Selected: ${area.toUpperCase()} Desk ${desk} • Seat ${seat}`;$("saveMoveSeat").disabled=false;document.querySelectorAll(".seatmap-seat.available").forEach(button=>button.classList.remove("selected"));const buttons=[...document.querySelectorAll(".seatmap-seat.available")];const chosen=buttons.find(button=>button.getAttribute("onclick")===`selectSeatMoveSpot('${roomId}','${area}',${desk},${seat})`);if(chosen)chosen.classList.add("selected")}
+function saveSeatMove(studentId){if(state.locked)return toast("Unlock first.");const allocation=state.allocation.find(item=>item.studentId===studentId),spot=pendingSeatMove;if(!allocation||!spot||spot.studentId!==studentId)return toast("Select an available seat.");const room=state.rooms.find(item=>item.id===spot.roomId),area=String(spot.area||"").toLowerCase(),seatCount=room&&["lhs","mhs","rhs"].includes(area)?Number(room[area].deskSeats[Number(spot.desk)-1]):0;if(!room||room.id!==allocation.roomId||!Number.isInteger(Number(spot.desk))||!Number.isInteger(Number(spot.seat))||Number(spot.desk)<1||Number(spot.seat)<1||Number(spot.seat)>seatCount)return toast("Selected seat is not valid.");const occupied=state.allocation.some(item=>item.studentId!==studentId&&(item.roomId===room.id||String(item.roomNumber)===String(room.number))&&String(item.area).toLowerCase()===area&&Number(item.desk)===Number(spot.desk)&&Number(item.seat)===Number(spot.seat));if(occupied)return toast("That seat is no longer available.");if((allocation.area===area&&Number(allocation.desk)===Number(spot.desk)&&Number(allocation.seat)===Number(spot.seat))||!saveAutomaticPlanBackup("Before manual seat change",allocation.level||studentLevel(allocation)))return;if(!spot||spot.roomId!==room.id)return toast("Choose an available seat in this room.");const index=state.allocation.indexOf(allocation);state.allocation[index]={...allocation,roomId:room.id,roomNumber:room.number,row:Number(spot.desk),area,desk:Number(spot.desk),seat:Number(spot.seat)};save();pendingSeatMove=null;closeModal();renderAll();toast("Student seat changed.")}
+
+function groupRoom(r){let g={};state.allocation.filter(a=>a.roomId===r.id).forEach(a=>{let k=a.className+"|"+a.section;(g[k]??=[]).push(a)});Object.values(g).forEach(v=>v.sort((a,b)=>String(a.symbol).localeCompare(String(b.symbol),undefined,{numeric:true})));return g}
+function formatSymbols(list){let raw=list.map(x=>String(x.symbol)).filter(Boolean);let nums=raw.filter(x=>/^\d+$/.test(x)).map(Number).sort((a,b)=>a-b),others=raw.filter(x=>!/^\d+$/.test(x)).sort();let out=[];let st=null,pr=null;for(const n of nums){if(st===null){st=pr=n}else if(n===pr+1){pr=n}else{out.push(st===pr?String(st):`${st}-${pr}`);st=pr=n}}if(st!==null)out.push(st===pr?String(st):`${st}-${pr}`);return out.concat(others).join(", ")}
+function symbolRangeText(list){let raw=list.map(x=>String(x.symbol)).filter(Boolean);let nums=raw.filter(x=>/^\d+$/.test(x)).map(Number).sort((a,b)=>a-b),others=raw.filter(x=>!/^\d+$/.test(x)).sort();let parts=[];if(nums.length){let start=nums[0],prev=nums[0];for(let i=1;i<nums.length;i++){let n=nums[i];if(n===prev+1){prev=n}else{parts.push(start===prev?String(start):`${start} to ${prev}`);start=prev=n}}parts.push(start===prev?String(start):`${start} to ${prev}`)}return parts.concat(others).join(", ")}
+function noticeHTML(r){let g=groupRoom(r),total=state.allocation.filter(a=>a.roomId===r.id).length,cap=capacity(r),empty=cap-total;let boxes=Object.entries(g).sort().map(([k,v])=>{let [c,s]=k.split("|");let range=symbolRangeText(v);return `<div class="classbox"><h3>Class ${esc(c)} • Section ${esc(s)} <span class="badge">${v.length} Students Allocated</span></h3><div class="symbol-list">Symbol No.: ${esc(range)}</div></div>`}).join("")||"<div class='alert'>No allocated students.</div>";return `<div class="noticeboard"><div class="nbhead"><h1>${esc(state.setup.schoolName)}</h1><div>${esc(state.setup.schoolAddress||"")}</div><h2>ROOM ${esc(r.number)}</h2><div class="nbmeta"><b>Exam:</b> ${esc(state.setup.examName)} &nbsp; | &nbsp; <b>Date:</b> ${esc(state.setup.examDate||"Not set")} &nbsp; | &nbsp; <b>Time:</b> ${esc(state.setup.examTime||"")}<br><b>Room Teacher / Invigilator:</b> ${esc(r.teacherName||"Not assigned")}<br><b>Runner:</b> ${esc(r.runnerName||"Not assigned")}<br><b>Total Students Allocated:</b> ${total} &nbsp; <b>Capacity:</b> ${cap} &nbsp; <b>Empty Seats:</b> ${empty}</div></div><h3>CLASS / SECTION — STUDENT COUNT AND SYMBOL RANGE</h3>${boxes}<div class="nbfooter">Students should check their Symbol Number and enter only the assigned room.</div></div>`}
+function renderNoticeBoards(){$("noticeboards").innerHTML=state.rooms.map(noticeHTML).join("")||"<div class='alert'>No rooms.</div>"}
+
+function renderClassAlloc(){let g={};state.allocation.forEach(a=>(g[a.className+"|"+a.section]??=[]).push(a));$("classalloc").innerHTML=Object.entries(g).sort().map(([k,v])=>{let[c,s]=k.split("|");v.sort((a,b)=>String(a.symbol).localeCompare(String(b.symbol),undefined,{numeric:true}));return `<div class="room"><h3>Class ${esc(c)} • Section ${esc(s)} <span class="badge">${v.length}</span></h3><div class="tablewrap"><table><tr><th>Symbol</th><th>Name</th><th>Room</th><th>Position</th></tr>${v.map(x=>`<tr><td>${esc(x.symbol)}</td><td>${esc(x.name)}</td><td>${esc(x.roomNumber)}</td><td>${x.area.toUpperCase()} D${x.desk} Seat ${x.seat}</td></tr>`).join("")}</table></div></div>`}).join("")||"<div class='alert'>No allocation.</div>"}
+
+function renderGenerate(){
+  let level=getSelectedLevel();
+  let students=state.students.filter(s=>studentLevel(s)===level);
+  let rooms=state.rooms.filter(r=>normalizeRoom(r).level===level);
+  let c=rooms.reduce((x,r)=>x+capacity(r),0);
+  let allocated=state.allocation.filter(a=>(a.level||studentLevel(a))===level).length;
+  $("gs").textContent=students.length;
+  $("gc").textContent=c;
+  $("gb").textContent=Math.max(0,c-allocated);
+  $("gd").textContent=allocated;
+  $("capacity").innerHTML=!rooms.length
+    ? `<div class="alert warn">No rooms are assigned to Level ${esc(level)}. Assign rooms in Rooms & Desks.</div>`
+    : c<students.length
+      ? `<div class="alert" style="background:#fff0ef;color:#a32920">Level ${esc(level)} capacity short by ${students.length-c}.</div>`
+      : `<div class="alert ok">Level ${esc(level)}: ${students.length} students • ${c} capacity • ${Math.max(0,c-allocated)} empty seat(s).</div>`;
+}
+function renderAttendance(){$("attendance").innerHTML=state.rooms.map(r=>{let a=state.allocation.filter(x=>x.roomId===r.id).sort((x,y)=>Number(x.symbol)-Number(y.symbol));return `<div class="room"><h3>Room ${esc(r.number)} ${r.teacherName?"• "+esc(r.teacherName):""}</h3><div class="tablewrap"><table style="border-collapse:collapse;border:1px solid #000"><tr style="border:1px solid #000"><th style="border:1px solid #000;padding:6px">S.N.</th><th style="border:1px solid #000;padding:6px">Symbol</th><th style="border:1px solid #000;padding:6px">Name</th><th style="border:1px solid #000;padding:6px">Subject</th><th style="border:1px solid #000;padding:6px">Medium</th><th style="border:1px solid #000;padding:6px">Signature</th></tr>${a.map((x,i)=>`<tr style="border:1px solid #000"><td style="border:1px solid #000;padding:6px">${i+1}</td><td style="border:1px solid #000;padding:6px">${esc(x.symbol)}</td><td style="border:1px solid #000;padding:6px">${esc(x.name)}</td><td style="border:1px solid #000;padding:6px"></td><td style="border:1px solid #000;padding:6px"></td><td style="border:1px solid #000;padding:6px"></td></tr>`).join("")}</table></div></div>`}).join("")||"<div class='alert'>No allocation.</div>"}
+
+function recordKeeperSymbol(symbol){const value=String(symbol??"").trim();return value.replace(/^83-02(?:\s*[-/ ]\s*)?/i,"");}
+function renderRecordKeeper(){const container=$("recordkeeper");if(!container)return;container.innerHTML=state.rooms.map(r=>{let a=state.allocation.filter(x=>x.roomId===r.id).sort((x,y)=>String(x.symbol).localeCompare(String(y.symbol),undefined,{numeric:true}));return `<div class="room"><h3>Record Keeper • Room ${esc(r.number)} ${r.teacherName?"• "+esc(r.teacherName):""}</h3><div class="tablewrap"><table style="border-collapse:collapse;border:1px solid #000;table-layout:fixed;width:100%"><thead><tr style="border:1px solid #000"><th style="border:1px solid #000;padding:6px;text-align:center;width:42px" rowspan="2">S.N.</th><th style="border:1px solid #000;padding:6px;text-align:center;width:96px" rowspan="2">Symbol No.</th><th style="border:1px solid #000;padding:6px;text-align:left" rowspan="2">Name</th><th style="border:1px solid #000;padding:6px;text-align:center" colspan="2">Permission to go toilet</th><th style="border:1px solid #000;padding:6px;text-align:center;width:80px" rowspan="2">Cheating</th><th style="border:1px solid #000;padding:6px;text-align:center;width:90px" rowspan="2">Misbehaviour</th><th style="border:1px solid #000;padding:6px;text-align:left;width:130px" rowspan="2">Remarks</th></tr><tr style="border:1px solid #000"><th style="border:1px solid #000;padding:3px;text-align:center;width:34px">In</th><th style="border:1px solid #000;padding:3px;text-align:center;width:34px">Out</th></tr></thead>${a.map((x,i)=>`<tr style="border:1px solid #000"><td style="border:1px solid #000;padding:6px;text-align:center">${i+1}</td><td style="border:1px solid #000;padding:6px;text-align:center">${esc(recordKeeperSymbol(x.symbol))}</td><td style="border:1px solid #000;padding:6px">${esc(x.name)}</td><td style="border:1px solid #000;padding:3px;text-align:center">&nbsp;</td><td style="border:1px solid #000;padding:3px;text-align:center">&nbsp;</td><td style="border:1px solid #000;padding:6px;text-align:center">&nbsp;</td><td style="border:1px solid #000;padding:6px;text-align:center">&nbsp;</td><td style="border:1px solid #000;padding:6px">&nbsp;</td></tr>`).join("")}</table></div></div>`}).join("")||"<div class='alert'>No allocation.</div>"}
+const BS_FIRST_YEAR=1978,BS_LAST_YEAR=2099,BS_START_UTC=Date.UTC(1921,3,13),BS_DAY_MS=86400000;
+const BS_MONTH_NAMES=["Baisakh","Jestha","Ashadh","Shrawan","Bhadra","Ashwin","Kartik","Mangsir","Poush","Magh","Falgun","Chaitra"];
+// Month lengths are encoded as A=29, B=30, C=31, and D=32 days.
+const BS_MONTH_CODES=`CCDCCCBABABB;CCDDCBBABABB;CDCDCBBBAABC;CCCDCCABBABB;CCDCCCBABABB;CCDDCBBABABB;CDCDCBBBAABC;CCCDCCABBABB;CCDCCCBABABB;CDCDCBBABABB;CDCDCBBBAABC;CCCDCCBABABB;CCDCCCBABABB;CDCDCBBABABB;CDCDCBBBABAC;CCCDCCBABABB;CCDCCCBABABB;CDCDCBBBAABB;CDCDCBBBABAC;CCDCCCBABABB;CCDCCCBABABB;CDCDCBBBAABC;BDCDCBBBABAC;CCDCCCBABABB;CCDDCBBABABB;CDCDCBBBAABC;BDCDCBBBABAC;CCDCCCBABABB;CCDDCBBABABB;CDCDCBBBAABC;CCCDCCABBAAC;CCDCCCBABABB;CCDDCBBABABB;CDCDCBBBAABC;CCCDCCABBABB;CCDCCCBABABB;CCDDCBBABABB;CDCDCBBBAABC;CCCDCCABBABB;CCDCCCBABABB;CDCDCBBABABB;CDCDCBBBABAC;CCCDCCBABABB;CCDCCCBABABB;CDCDCBBBAABB;CDCDCBBBABAC;CCCDCCBABABB;CCDCCCBABABB;CDCDCBBBAABC;BDCDCBBBABAC;CCDCCCBABABB;CCDCDBBABABB;CDCDCBBBAABC;BDCDCBBBABAC;CCDCCCBABABB;CCDDCBBABABB;CDCDCBBBAABC;BDCDCCABBAAC;CCDCCCBABABB;CCDDCBBABABB;CDCDCBBBAABC;CCCDCCABBABB;CCDCCCBABABB;CCDDCBBABABB;CDCDCBBBAABC;CCCDCCABBABB;CCDCCCBABABB;CDCDCBBABABB;CDCDCBBBAABC;CCCDCCBABABB;CCDCCCBABABB;CDCDCBBBAABB;CDCDCBBBABAC;CCCDCCBABABB;CCDCCCBABABB;CDCDCBBBAABB;CDCDCBBBABAC;CCDCCCBABABB;CCDCDBBABABB;CDCDCBBBAABC;BDCDCBBBABAC;CCDCCCBABABB;CCDDCBBABABB;CDCDCBBBAABC;BDCDCCABABAC;CCDCCCBABABB;CCDDCBBABABB;CDCDCBBBAABC;CCCDCCABBAAC;CCDCCCBABABB;CCDDCBBABABB;CDCDCBBBAABC;CCCDCCABBABB;CCDCCCBABABB;CDCDCBBABABB;CDCDCBBBAABC;CCCDCCBABABB;CCDCCCBABABB;CDCDCBBBAABB;CDCDCBBBABAC;CCCDCCBABABB;CCDCCCBABABB;CDCDCBBBAABB;CDCDCBBBABAC;CCDCCCBABABB;CCDCCCBABABB;CCDCCBBBABBB;CDCDBCBBABBB;BDCDCBBBABBB;CCDCCCBBABBB;BCDDBCBBABBB;BDCDCBBBABBB;BDCDCBBBABBB;CCDCCCBBABBB;BCDDCBBBABBB;BDCDCBBBABBB;CCDCCBBBABBB;CCDCCCBABBBB;BCDDCBBABABB;CDCDCBBBABBB;CCDCCCABABAC;CDCDCBBBAABC`.split(";");
+const BS_MONTH_DAYS=BS_MONTH_CODES.map(code=>Array.from(code,char=>({A:29,B:30,C:31,D:32}[char])));
+let examRecordCalendar={year:2083,month:6};
+function bsDayOffset(year,month,day=1){let offset=0;for(let y=BS_FIRST_YEAR;y<year;y++)offset+=BS_MONTH_DAYS[y-BS_FIRST_YEAR].reduce((sum,n)=>sum+n,0);for(let m=1;m<month;m++)offset+=BS_MONTH_DAYS[year-BS_FIRST_YEAR][m-1];return offset+day-1}
+function bsDateFromToday(){const parts=new Intl.DateTimeFormat("en-US",{timeZone:"Asia/Kathmandu",year:"numeric",month:"numeric",day:"numeric"}).formatToParts(new Date());const date=Object.fromEntries(parts.filter(part=>part.type!=="literal").map(part=>[part.type,Number(part.value)]));let remaining=Math.floor((Date.UTC(date.year,date.month-1,date.day)-BS_START_UTC)/BS_DAY_MS);if(remaining<0)return null;for(let year=BS_FIRST_YEAR;year<=BS_LAST_YEAR;year++){const months=BS_MONTH_DAYS[year-BS_FIRST_YEAR],yearLength=months.reduce((sum,n)=>sum+n,0);if(remaining<yearLength){for(let month=1;month<=12;month++){if(remaining<months[month-1])return {year,month,day:remaining+1};remaining-=months[month-1]}return null}remaining-=yearLength}return null}
+function formatBsDate(date){return `${date.year}-${String(date.month).padStart(2,"0")}-${String(date.day).padStart(2,"0")}`}
+function ensureExamRecordDate(){const current=bsDateFromToday();if(!current){$("recordDate").placeholder="BS date out of supported range";return}if(!$("recordDate").value)$("recordDate").value=formatBsDate(current);const selected=$("recordDate").value.match(/^(\d{4})-(\d{2})-(\d{2})$/);const year=selected?Number(selected[1]):current.year,month=selected?Number(selected[2]):current.month,day=selected?Number(selected[3]):current.day;examRecordCalendar=year>=BS_FIRST_YEAR&&year<=BS_LAST_YEAR&&month>=1&&month<=12&&day>=1&&day<=BS_MONTH_DAYS[year-BS_FIRST_YEAR][month-1]?{year,month}:{year:current.year,month:current.month}}
+function toggleBsCalendar(){const calendar=$("recordBsCalendar");if(calendar.hidden){ensureExamRecordDate();calendar.hidden=false;renderBsCalendar()}else calendar.hidden=true}
+function changeBsCalendarMonth(step){let {year,month}=examRecordCalendar;month+=step;if(month<1){year--;month=12}else if(month>12){year++;month=1}if(year<BS_FIRST_YEAR||year>BS_LAST_YEAR)return;examRecordCalendar={year,month};renderBsCalendar()}
+function renderBsCalendar(){const {year,month}=examRecordCalendar,days=BS_MONTH_DAYS[year-BS_FIRST_YEAR][month-1],today=bsDateFromToday(),selected=$("recordDate").value,firstWeekday=new Date(BS_START_UTC+bsDayOffset(year,month)*BS_DAY_MS).getUTCDay();const yearOptions=Array.from({length:BS_LAST_YEAR-BS_FIRST_YEAR+1},(_,index)=>BS_FIRST_YEAR+index).map(value=>`<option value="${value}"${value===year?" selected":""}>${value}</option>`).join("");let cells=Array.from({length:firstWeekday},()=>'<span class="bs-calendar-empty"></span>').join("");for(let day=1;day<=days;day++){const date={year,month,day},value=formatBsDate(date),classes=[today&&value===formatBsDate(today)?"today":"",value===selected?"selected":""].filter(Boolean).join(" ");cells+=`<button type="button" class="${classes}" onclick="selectBsCalendarDate(${day})" aria-label="${BS_MONTH_NAMES[month-1]} ${day}, ${year}">${day}</button>`} $("recordBsCalendar").innerHTML=`<div class="bs-calendar-controls"><button type="button" onclick="changeBsCalendarMonth(-1)" aria-label="Previous month"${year===BS_FIRST_YEAR&&month===1?" disabled":""}>‹</button><select aria-label="BS month" onchange="examRecordCalendar.month=Number(this.value);renderBsCalendar()">${BS_MONTH_NAMES.map((name,index)=>`<option value="${index+1}"${index+1===month?" selected":""}>${name}</option>`).join("")}</select><select aria-label="BS year" onchange="examRecordCalendar.year=Number(this.value);renderBsCalendar()">${yearOptions}</select><button type="button" onclick="changeBsCalendarMonth(1)" aria-label="Next month"${year===BS_LAST_YEAR&&month===12?" disabled":""}>›</button></div><div class="bs-calendar-weekdays">${["Su","Mo","Tu","We","Th","Fr","Sa"].map(day=>`<span>${day}</span>`).join("")}</div><div class="bs-calendar-days">${cells}</div><button type="button" class="bs-calendar-today" onclick="selectBsToday()">Today</button>`}
+function selectBsCalendarDate(day){$("recordDate").value=formatBsDate({...examRecordCalendar,day});$("recordBsCalendar").hidden=true}
+function selectBsToday(){const today=bsDateFromToday();if(!today)return;$("recordDate").value=formatBsDate(today);examRecordCalendar={year:today.year,month:today.month};$("recordBsCalendar").hidden=true}
+function ensureSetupExamDate(){const current=bsDateFromToday();if(!current){$("examDate").placeholder="BS date out of supported range";return}if(!$("examDate").value)$("examDate").value=formatBsDate(current);const selected=$("examDate").value.match(/^(\d{4})-(\d{2})-(\d{2})$/);const year=selected?Number(selected[1]):current.year,month=selected?Number(selected[2]):current.month,day=selected?Number(selected[3]):current.day;examSetupCalendar=year>=BS_FIRST_YEAR&&year<=BS_LAST_YEAR&&month>=1&&month<=12&&day>=1&&day<=BS_MONTH_DAYS[year-BS_FIRST_YEAR][month-1]?{year,month}:{year:current.year,month:current.month}}
+function toggleSetupBsCalendar(){const calendar=$("setupBsCalendar");if(calendar.hidden){ensureSetupExamDate();calendar.hidden=false;renderSetupBsCalendar()}else calendar.hidden=true}
+function changeSetupBsCalendarMonth(step){let {year,month}=examSetupCalendar;month+=step;if(month<1){year--;month=12}else if(month>12){year++;month=1}if(year<BS_FIRST_YEAR||year>BS_LAST_YEAR)return;examSetupCalendar={year,month};renderSetupBsCalendar()}
+function renderSetupBsCalendar(){const {year,month}=examSetupCalendar,days=BS_MONTH_DAYS[year-BS_FIRST_YEAR][month-1],today=bsDateFromToday(),selected=$("examDate").value,firstWeekday=new Date(BS_START_UTC+bsDayOffset(year,month)*BS_DAY_MS).getUTCDay();const yearOptions=Array.from({length:BS_LAST_YEAR-BS_FIRST_YEAR+1},(_,index)=>BS_FIRST_YEAR+index).map(value=>`<option value="${value}"${value===year?" selected":""}>${value}</option>`).join("");let cells=Array.from({length:firstWeekday},()=>'<span class="bs-calendar-empty"></span>').join("");for(let day=1;day<=days;day++){const date={year,month,day},value=formatBsDate(date),classes=[today&&value===formatBsDate(today)?"today":"",value===selected?"selected":""].filter(Boolean).join(" ");cells+=`<button type="button" class="${classes}" onclick="selectSetupBsCalendarDate(${day})" aria-label="${BS_MONTH_NAMES[month-1]} ${day}, ${year}">${day}</button>`} $("setupBsCalendar").innerHTML=`<div class="bs-calendar-controls"><button type="button" onclick="changeSetupBsCalendarMonth(-1)" aria-label="Previous month"${year===BS_FIRST_YEAR&&month===1?" disabled":""}>‹</button><select aria-label="BS month" onchange="examSetupCalendar.month=Number(this.value);renderSetupBsCalendar()">${BS_MONTH_NAMES.map((name,index)=>`<option value="${index+1}"${index+1===month?" selected":""}>${name}</option>`).join("")}</select><select aria-label="BS year" onchange="examSetupCalendar.year=Number(this.value);renderSetupBsCalendar()">${yearOptions}</select><button type="button" onclick="changeSetupBsCalendarMonth(1)" aria-label="Next month"${year===BS_LAST_YEAR&&month===12?" disabled":""}>›</button></div><div class="bs-calendar-weekdays">${["Su","Mo","Tu","We","Th","Fr","Sa"].map(day=>`<span>${day}</span>`).join("")}</div><div class="bs-calendar-days">${cells}</div><button type="button" class="bs-calendar-today" onclick="selectSetupBsToday()">Today</button>`}
+function selectSetupBsCalendarDate(day){$("examDate").value=formatBsDate({...examSetupCalendar,day});$("setupBsCalendar").hidden=true}
+function selectSetupBsToday(){const today=bsDateFromToday();if(!today)return;$("examDate").value=formatBsDate(today);examSetupCalendar={year:today.year,month:today.month};$("setupBsCalendar").hidden=true}
+function lookupExamRecordStudent(){const symbol=$("recordSymbol").value.trim().toLowerCase();const student=state.students.find(x=>String(x.symbol).trim().toLowerCase()===symbol)||state.allocation.find(x=>String(x.symbol).trim().toLowerCase()===symbol);$("recordName").value=student?.name||"";$("recordClass").value=student?.className||"";$("recordSection").value=student?.section||""}
+function addExamRecord(){if(state.locked)return toast("Unlock first.");lookupExamRecordStudent();const symbol=$("recordSymbol").value.trim(),name=$("recordName").value.trim(),className=$("recordClass").value.trim(),section=$("recordSection").value.trim(),date=$("recordDate").value.trim();if(!symbol)return toast("Enter a symbol number.");if(!name||!className||!section)return toast("Symbol number not found for the student class and section.");if(!date)return toast("Enter the record date in B.S.");state.examRecords.unshift({id:uid(),symbol,name,className,section,type:$("recordType").value,date,note:$("recordNote").value.trim(),createdAt:new Date().toISOString()});save();renderExamRecords();dashboard();$("recordSymbol").value="";$("recordName").value="";$("recordClass").value="";$("recordSection").value="";$("recordNote").value="";selectBsToday();$("recordType").value="Absent";$("recordSymbol").focus();toast("Exam record added.")}
+function deleteExamRecord(id){if(state.locked)return toast("Unlock first.");state.examRecords=state.examRecords.filter(record=>record.id!==id);save();renderExamRecords();dashboard()}
+function renderExamRecords(){const container=$("examRecords");if(!container)return;ensureExamRecordDate();container.innerHTML=state.examRecords.length?`<div class="tablewrap"><table><thead><tr><th>S.N.</th><th>Date (B.S.)</th><th>Symbol No.</th><th>Name</th><th>Class</th><th>Section</th><th>Record</th><th>Note</th><th>Action</th></tr></thead><tbody>${state.examRecords.map((record,index)=>`<tr><td>${index+1}</td><td>${esc(record.date||"")}</td><td>${esc(record.symbol)}</td><td>${esc(record.name)}</td><td>${esc(record.className||record.class||"")}</td><td>${esc(record.section||"")}</td><td>${esc(record.type)}</td><td>${esc(record.note||"")}</td><td><button class="btn danger" onclick="deleteExamRecord('${esc(record.id)}')">Delete</button></td></tr>`).join("")}</tbody></table></div>`:"<div class='alert'>No exam records entered.</div>"}
+function getClassSectionTotals(){let totals=new Map();state.students.forEach(student=>{const className=String(student.className||"").trim(),section=String(student.section||"").trim(),key=`${className} | ${section}`;totals.set(key,(totals.get(key)||0)+1)});return [...totals.entries()].sort(([a],[b])=>{const [classA,sectionA]=a.split(" | ");const [classB,sectionB]=b.split(" | ");const classCompare=String(classA).localeCompare(String(classB),undefined,{numeric:true,sensitivity:"base"});if(classCompare!==0)return classCompare;return String(sectionA).localeCompare(String(sectionB),undefined,{numeric:true,sensitivity:"base"})})}
+function printClassSectionTotals(){const totals=getClassSectionTotals();if(!totals.length){toast("No student data to print.");return}const totalStudents=totals.reduce((sum,[,count])=>sum+count,0);const body=`<div class="print-notice"><div class="print-title"><b>${esc(state.setup.schoolName)}</b><br>All Class Student Total by Section<br>${esc(state.setup.examName||"Academic Report")} • ${esc(state.setup.academicYear||"")}</div><table style="width:100%;border-collapse:collapse;border:1px solid #000"><tr><th style="border:1px solid #000;padding:6px;text-align:left;">Class</th><th style="border:1px solid #000;padding:6px;text-align:left;">Section</th><th style="border:1px solid #000;padding:6px;text-align:center;">Total Students</th></tr>${totals.map(([key,count])=>{const [className,section]=key.split(" | ");return `<tr><td style="border:1px solid #000;padding:6px;">${esc(className)}</td><td style="border:1px solid #000;padding:6px;">${esc(section)}</td><td style="border:1px solid #000;padding:6px;text-align:center;">${count}</td></tr>`}).join("")}<tr><td colspan="2" style="border:1px solid #000;padding:6px;font-weight:bold;text-align:right;">Grand Total</td><td style="border:1px solid #000;padding:6px;text-align:center;font-weight:bold;">${totalStudents}</td></tr></table></div>`;openPrint(body,"Class Student Total by Section","portrait")}
+function renderReports(){let cap=state.rooms.reduce((x,r)=>x+capacity(r),0),mix=state.rooms.map(r=>{let g=groupRoom(r);return `<tr><td>${esc(r.number)}</td><td>${Object.keys(g).length}</td><td>${state.allocation.filter(a=>a.roomId===r.id).length}</td><td>${capacity(r)}</td><td>${capacity(r)-state.allocation.filter(a=>a.roomId===r.id).length}</td></tr>`}).join("");const classSectionTotals=getClassSectionTotals();const totalStudents=classSectionTotals.reduce((sum,[,count])=>sum+count,0);$("reports").innerHTML=`<div class="toolbar" style="margin-bottom:10px"><h2 style="margin:0">Reports</h2><span class="grow"></span><button class="btn primary" onclick="printClassSectionTotals()">Print Class Totals by Section</button></div><div class="grid g4"><div class="card stat"><div class="num">${state.students.length}</div>Students</div><div class="card stat"><div class="num">${cap}</div>Capacity</div><div class="card stat"><div class="num">${state.allocation.length}</div>Allocated</div><div class="card stat"><div class="num">${cap-state.allocation.length}</div>Empty</div></div><div class="card"><h3>All Class Student Total by Section</h3><div class="tablewrap"><table><thead><tr><th>Class</th><th>Section</th><th>Total Students</th></tr></thead><tbody>${classSectionTotals.map(([key,count])=>{const [className,section]=key.split(" | ");return `<tr><td>${esc(className)}</td><td>${esc(section)}</td><td>${count}</td></tr>`}).join("")||"<tr><td colspan='3'>No students.</td></tr>"}<tr><td colspan="2" style="font-weight:bold;text-align:right;">Grand Total</td><td style="font-weight:bold;">${totalStudents}</td></tr></tbody></table></div></div><div class="tablewrap"><table><tr><th>Room</th><th>Classes</th><th>Allocated</th><th>Capacity</th><th>Empty</th></tr>${mix}</table></div>`}
+function renderLock(){$("lock").innerHTML=state.locked?'<div class="alert warn">This examination is LOCKED. Unlock before changing data.</div>':'<div class="alert ok">Working mode: data can be edited.</div>';renderAutomaticPlanBackups()}
+
+function saveAutomaticPlanBackup(reason,level){const backup={id:uid(),savedAt:new Date().toISOString(),reason,level:level||state.currentLevel||"",state:JSON.parse(JSON.stringify(state))};let next=[backup,...automaticPlanBackups].slice(0,10);while(true){try{localStorage.setItem(AUTO_BACKUP_KEY,JSON.stringify(next));automaticPlanBackups=next;renderAutomaticPlanBackups();return true}catch(error){if(next.length>1){next=next.slice(0,-1);continue}toast("Could not save an automatic plan backup. Free browser storage before changing this plan or duty roster.");return false}}}
+function renderAutomaticPlanBackups(){const container=$("autoBackups");if(!container)return;container.innerHTML=automaticPlanBackups.length?`<div class="tablewrap"><table><thead><tr><th>Saved</th><th>Backup reason</th><th>Level</th><th>Students / Rooms</th><th>Action</th></tr></thead><tbody>${automaticPlanBackups.map(backup=>{const saved=backup.state||{};return `<tr><td>${esc(new Date(backup.savedAt).toLocaleString())}</td><td>${esc(backup.reason||"Automatic plan backup")}</td><td>${esc(backup.level||saved.currentLevel||"")}</td><td>${(saved.allocation||[]).length} allocated / ${(saved.rooms||[]).length} rooms</td><td><button class="btn primary" onclick="restoreAutomaticPlanBackup('${esc(backup.id)}')">Restore</button> <button class="btn danger" onclick="deleteAutomaticPlanBackup('${esc(backup.id)}')">Delete</button></td></tr>`}).join("")}</tbody></table></div>`:"<div class='muted'>No automatic backups yet. The app will save the current plan and room duties here before regeneration or clearing.</div>"}
+function restoreAutomaticPlanBackup(id){if(state.locked)return toast("Unlock first.");const backup=automaticPlanBackups.find(item=>item.id===id);if(!backup||!backup.state)return toast("Backup not found or invalid.");if(!confirm("Restore the saved seat plan and invigilator assignments? Current data will first be backed up."))return;if((state.allocation.length||state.rooms.length)&&!saveAutomaticPlanBackup("Before restoring automatic backup",state.currentLevel))return;const restored=JSON.parse(JSON.stringify(backup.state));state={...state,...restored,currentLevel:restored.currentLevel||"4-6",setup:{...state.setup,...(restored.setup||{})},students:Array.isArray(restored.students)?restored.students:[],rooms:Array.isArray(restored.rooms)?restored.rooms.map(normalizeRoom):[],allocation:Array.isArray(restored.allocation)?restored.allocation:[],examRecords:Array.isArray(restored.examRecords)?restored.examRecords:[],rules:normalizeRules(restored.rules),locked:false};save();setupUI();renderAll();showPage("dashboard");toast("Saved seat plan and room duty assignments restored.")}
+function deleteAutomaticPlanBackup(id){const next=automaticPlanBackups.filter(backup=>backup.id!==id);try{localStorage.setItem(AUTO_BACKUP_KEY,JSON.stringify(next));automaticPlanBackups=next;renderAutomaticPlanBackups();toast("Automatic backup deleted.")}catch(error){toast("Could not delete the automatic backup.")}}
+function snapshot(){let h={id:uid(),savedAt:new Date().toISOString(),currentLevel:state.currentLevel||"4-6",setup:JSON.parse(JSON.stringify(state.setup)),students:JSON.parse(JSON.stringify(state.students)),rooms:JSON.parse(JSON.stringify(state.rooms)),allocation:JSON.parse(JSON.stringify(state.allocation)),examRecords:JSON.parse(JSON.stringify(state.examRecords||[]))};history.unshift(h);history=history.slice(0,50);localStorage.setItem(HISTORY_KEY,JSON.stringify(history));renderHistory();toast("Examination copy saved.")}
+function renderHistory(){$("history").innerHTML=history.map((h,i)=>`<div class="room"><div class="roomhead"><div><b>${esc(h.setup.examName||"Examination")}</b><div class="muted">Level: ${esc(h.currentLevel||"")} • Date: ${esc(h.setup.examDate||"")} • Saved: ${new Date(h.savedAt).toLocaleString()} • Students: ${h.students.length} • Rooms: ${h.rooms.length}</div></div><div><button class="btn primary" onclick="restoreHistory(${i})">Restore</button><button class="btn danger" onclick="deleteHistory(${i})">Delete</button></div></div></div>`).join("")||"<div class='muted'>No previous saved examinations.</div>"}
+function restoreHistory(i){if(!confirm("Restore this saved examination? Current working data will first be saved as a copy."))return;snapshot();let h=history[i];state={currentLevel:h.currentLevel||"4-6",setup:JSON.parse(JSON.stringify(h.setup)),students:JSON.parse(JSON.stringify(h.students)),rooms:JSON.parse(JSON.stringify(h.rooms)).map(normalizeRoom),allocation:JSON.parse(JSON.stringify(h.allocation)),examRecords:Array.isArray(h.examRecords)?JSON.parse(JSON.stringify(h.examRecords)):[],locked:false};save();setupUI();renderAll();toast("Previous examination restored.")}
+function deleteHistory(i){if(confirm("Delete this saved examination?")){history.splice(i,1);localStorage.setItem(HISTORY_KEY,JSON.stringify(history));renderHistory()}}
+function finalizePlan(){if(!state.allocation.length)return toast("Generate plan first.");state.locked=true;save();renderLock();toast("Examination finalized.")}
+function unlock(){state.locked=false;save();renderLock();toast("Unlocked.")}
+function clearAllocation(){if(state.locked)return toast("Unlock first.");if(confirm("Clear allocation only? Students, rooms and dates will remain.")){if(state.allocation.length&&!saveAutomaticPlanBackup("Before clearing allocation",state.currentLevel))return;state.allocation=[];save();renderAll();toast("Allocation cleared only.")}}
+
+function openPrint(body,title="Print",orientation="landscape"){if(title==="Record Keeper"){body=body.replace(/<div class="print-notice">/g,'<div class="print-notice recordkeeper-print">').replace(/table-layout:fixed/g,"table-layout:auto;min-width:0");orientation="landscape"}let w=window.open("","_blank");if(!w)return alert("Allow popups for printing.");w.document.write(`<!doctype html><html><head><title>${esc(title)}</title><meta charset="utf-8"><style>${document.querySelector("style").textContent}</style><style>@media print{@page{size:A4 ${orientation};margin:8mm}}</style></head><body><div class="main" style="margin:0;width:100%;padding:0">${body}</div><script>window.onload=()=>setTimeout(()=>window.print(),300)<\/script></body></html>`);w.document.close()}
+function printSeatPlan(){let body=state.rooms.map(r=>createRoomVisual(r,true)).join("");openPrint(body,"Seat Plan")}
+function printRoomNoticeBoards(){openPrint(state.rooms.map(r=>`<div class="print-notice">${noticeHTML(r)}</div>`).join(""),"Room Notice Boards","portrait")}
+function printStudentDisplay(){let groups={};state.allocation.forEach(a=>(groups[a.roomNumber]??=[]).push(a));let body=`<div class="noticeboard"><div class="nbhead"><h1>${esc(state.setup.schoolName)}</h1><h2>STUDENT ROOM DISPLAY BOARD</h2><div>${esc(state.setup.examName)} • Date: ${esc(state.setup.examDate||"")} • Time: ${esc(state.setup.examTime||"")}</div></div><table style="width:100%;border-collapse:collapse"><tr><th>Room</th><th>Class / Section</th><th>Symbol Numbers</th><th>No. of Students</th></tr>${Object.entries(groups).map(([r,v])=>{let g={};v.forEach(a=>(g[a.className+"|"+a.section]??=[]).push(a));return Object.entries(g).map(([k,x])=>{let[c,s]=k.split("|");return `<tr><td>${esc(r)}</td><td>${esc(c)} / ${esc(s)}</td><td>${esc(formatSymbols(x))}</td><td>${x.length}</td></tr>`}).join("")}).join("")}</table></div>`;openPrint(body,"Student Display Board")}
+function printRoomSummary(){let body=`<div class="noticeboard"><div class="nbhead"><h1>${esc(state.setup.schoolName)}</h1><h2>ROOM SUMMARY</h2><div>${esc(state.setup.examName)} • ${esc(state.setup.examDate||"")}</div></div><table style="width:100%;border-collapse:collapse"><tr><th>Room</th><th>Room Teacher</th><th>Total Students</th><th>Capacity</th><th>Empty</th><th>Classes / Sections</th></tr>${state.rooms.map(r=>{let g=groupRoom(r);return `<tr><td>${esc(r.number)}</td><td>${esc(r.teacherName||"")}</td><td>${state.allocation.filter(a=>a.roomId===r.id).length}</td><td>${capacity(r)}</td><td>${capacity(r)-state.allocation.filter(a=>a.roomId===r.id).length}</td><td>${Object.keys(g).map(k=>esc(k.replace("|"," / "))).join(", ")}</td></tr>`}).join("")}</table></div>`;openPrint(body,"Room Summary")}
+function printAttendance(){let body=state.rooms.map(r=>{let a=state.allocation.filter(x=>x.roomId===r.id).sort((x,y)=>String(x.symbol).localeCompare(String(y.symbol),undefined,{numeric:true}));return `<div class="print-notice"><div class="print-title"><b>${esc(state.setup.schoolName)}</b><br>Room ${esc(r.number)} Attendance • ${esc(state.setup.examName)} • ${esc(state.setup.examDate||"")}<br>Invigilator: ${esc(r.teacherName||"")}</div><table style="width:100%;border-collapse:collapse;border:1px solid #000"><tr style="border:1px solid #000"><th style="border:1px solid #000;padding:6px">S.N.</th><th style="border:1px solid #000;padding:6px">Symbol</th><th style="border:1px solid #000;padding:6px">Name</th><th style="border:1px solid #000;padding:6px">Subject</th><th style="border:1px solid #000;padding:6px">Medium</th><th style="border:1px solid #000;padding:6px">Signature</th></tr>${a.map((x,i)=>`<tr style="border:1px solid #000"><td style="border:1px solid #000;padding:6px">${i+1}</td><td style="border:1px solid #000;padding:6px">${esc(x.symbol)}</td><td style="border:1px solid #000;padding:6px">${esc(x.name)}</td><td style="border:1px solid #000;padding:6px"></td><td style="border:1px solid #000;padding:6px"></td><td style="border:1px solid #000;padding:6px"></td></tr>`).join("")}</table></div>`}).join("");openPrint(body,"Attendance","portrait")}
+function printExamRecords(){const rows=state.examRecords.map((record,index)=>`<tr><td>${index+1}</td><td>${esc(record.date||"")}</td><td>${esc(record.symbol)}</td><td>${esc(record.name)}</td><td>${esc(record.type)}</td><td>${esc(record.note||"")}</td></tr>`).join("");const body=`<div class="print-title"><b>${esc(state.setup.schoolName)}</b><br>Absentees and Incident Records • ${esc(state.setup.examName)} • ${esc(state.setup.examDate||"")}</div><table style="width:100%;border-collapse:collapse;border:1px solid #000"><thead><tr><th style="border:1px solid #000;padding:6px">S.N.</th><th style="border:1px solid #000;padding:6px">Date (B.S.)</th><th style="border:1px solid #000;padding:6px">Symbol No.</th><th style="border:1px solid #000;padding:6px">Name</th><th style="border:1px solid #000;padding:6px">Record</th><th style="border:1px solid #000;padding:6px">Note</th></tr></thead><tbody>${rows||"<tr><td colspan='6' style='border:1px solid #000;padding:6px;text-align:center'>No exam records entered.</td></tr>"}</tbody></table>`;openPrint(body,"Exam Records","portrait")}
+function printRecordKeeper(){let body=state.rooms.map(r=>{let a=state.allocation.filter(x=>x.roomId===r.id).sort((x,y)=>String(x.symbol).localeCompare(String(y.symbol),undefined,{numeric:true}));return `<div class="print-notice"><div class="print-title"><b>${esc(state.setup.schoolName)}</b><br>Record Keeper • Room ${esc(r.number)} • ${esc(state.setup.examName)} • ${esc(state.setup.examDate||"")}<br>Invigilator: ${esc(r.teacherName||"")}</div><table style="width:100%;border-collapse:collapse;border:1px solid #000;table-layout:fixed"><thead><tr style="border:1px solid #000"><th style="border:1px solid #000;padding:6px;text-align:center;width:42px" rowspan="2">S.N.</th><th style="border:1px solid #000;padding:6px;text-align:center;width:96px" rowspan="2">Symbol No.</th><th style="border:1px solid #000;padding:6px;text-align:left" rowspan="2">Name</th><th style="border:1px solid #000;padding:6px;text-align:center" colspan="2">Permission to go toilet</th><th style="border:1px solid #000;padding:6px;text-align:center;width:80px" rowspan="2">Cheating</th><th style="border:1px solid #000;padding:6px;text-align:center;width:90px" rowspan="2">Misbehaviour</th><th style="border:1px solid #000;padding:6px;text-align:left;width:130px" rowspan="2">Remarks</th></tr><tr style="border:1px solid #000"><th style="border:1px solid #000;padding:3px;text-align:center;width:34px">In</th><th style="border:1px solid #000;padding:3px;text-align:center;width:34px">Out</th></tr></thead>${a.map((x,i)=>`<tr style="border:1px solid #000"><td style="border:1px solid #000;padding:6px;text-align:center">${i+1}</td><td style="border:1px solid #000;padding:6px;text-align:center">${esc(recordKeeperSymbol(x.symbol))}</td><td style="border:1px solid #000;padding:6px">${esc(x.name)}</td><td style="border:1px solid #000;padding:3px;text-align:center">&nbsp;</td><td style="border:1px solid #000;padding:3px;text-align:center">&nbsp;</td><td style="border:1px solid #000;padding:6px;text-align:center">&nbsp;</td><td style="border:1px solid #000;padding:6px;text-align:center">&nbsp;</td><td style="border:1px solid #000;padding:6px">&nbsp;</td></tr>`).join("")}</table></div>`}).join("");openPrint(body,"Record Keeper","portrait")}
+function printClassAttendance(){let g={};state.allocation.forEach(a=>(g[a.className+"|"+a.section]??=[]).push(a));let body=Object.entries(g).sort().map(([k,a])=>{let[c,s]=k.split("|");a.sort((x,y)=>String(x.symbol).localeCompare(String(y.symbol),undefined,{numeric:true}));return `<div class="print-notice"><div class="print-title"><b>${esc(state.setup.schoolName)}</b><br>Class ${esc(c)} • Section ${esc(s)} Attendance<br>${esc(state.setup.examName)} • ${esc(state.setup.examDate||"")}</div><table style="width:100%;border-collapse:collapse;border:1px solid #000"><tr style="border:1px solid #000"><th style="border:1px solid #000;padding:6px">S.N.</th><th style="border:1px solid #000;padding:6px">Symbol</th><th style="border:1px solid #000;padding:6px">Name</th><th style="border:1px solid #000;padding:6px">Room</th><th style="border:1px solid #000;padding:6px">Subject</th><th style="border:1px solid #000;padding:6px">Medium</th><th style="border:1px solid #000;padding:6px">Signature</th></tr>${a.map((x,i)=>`<tr style="border:1px solid #000"><td style="border:1px solid #000;padding:6px">${i+1}</td><td style="border:1px solid #000;padding:6px">${esc(x.symbol)}</td><td style="border:1px solid #000;padding:6px">${esc(x.name)}</td><td style="border:1px solid #000;padding:6px">${esc(x.roomNumber)}</td><td style="border:1px solid #000;padding:6px"></td><td style="border:1px solid #000;padding:6px"></td><td style="border:1px solid #000;padding:6px"></td></tr>`).join("")}</table></div>`}).join("");openPrint(body,"Class Attendance","portrait")}
+function printClassList(){let g={};state.allocation.forEach(a=>(g[a.className+"|"+a.section]??=[]).push(a));let body=Object.entries(g).sort().map(([k,a])=>{let[c,s]=k.split("|");a.sort((x,y)=>String(x.symbol).localeCompare(String(y.symbol),undefined,{numeric:true}));return `<div class="print-notice"><div class="print-title"><b>${esc(state.setup.schoolName)}</b><br>Class ${esc(c)} • Section ${esc(s)} • Room Allocation</div><table style="width:100%;border-collapse:collapse"><tr><th>Symbol</th><th>Name</th><th>Room</th><th>Position</th></tr>${a.map(x=>`<tr><td>${esc(x.symbol)}</td><td>${esc(x.name)}</td><td>${esc(x.roomNumber)}</td><td>${x.area.toUpperCase()} D${x.desk} Seat ${x.seat}</td></tr>`).join("")}</table></div>`}).join("");openPrint(body,"Class Allocation")}
+
+function csvDownload(name,text){let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"text/csv;charset=utf-8"}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+function exportRoomsCSV(){let rows=[["Room","Level","Rows","Teacher","Runner","LHS","MHS","RHS"],...state.rooms.map(room=>[room.number,room.level,room.rows,room.teacherName||"",room.runnerName||"",room.lhs.deskSeats.join("|"),room.mhs.deskSeats.join("|"),room.rhs.deskSeats.join("|")])];csvDownload("rooms.csv",rows.map(row=>row.map(value=>`"${String(value??"").replace(/"/g,'""')}"`).join(",")).join("\n"))}
+function exportStudents(){let rows=[["Symbol","Name","Class","Section","Stream","Seating Note"],...state.students.map(s=>[s.symbol,s.name,s.className,s.section,s.stream||"",s.seatingNote||""])];csvDownload("students.csv",rows.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(",")).join("\n"))}
+function exportPlan(){let rows=[["Symbol","Name","Class","Section","Room","Area","Desk","Seat"],...state.allocation.map(x=>[x.symbol,x.name,x.className,x.section,x.roomNumber,x.area,x.desk,x.seat])];csvDownload("seat_plan.csv",rows.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(",")).join("\n"))}
+function backupJSON(){let pack={version:8,exportedAt:new Date().toISOString(),state,history,automaticPlanBackups};let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(pack,null,2)],{type:"application/json"}));a.download="rastranirman_exam_backup.json";a.click()}
+function restoreJSON(e){let f=e.target.files[0];if(!f)return;let rd=new FileReader();rd.onload=()=>{try{let p=JSON.parse(rd.result);if(p.state){state={...state,...p.state,currentLevel:p.state.currentLevel||state.currentLevel||"4-6",setup:{...state.setup,...(p.state.setup||{})}};state.rules=normalizeRules(state.rules);state.rooms=(state.rooms||[]).map(normalizeRoom);state.examRecords=Array.isArray(state.examRecords)?state.examRecords:[];if(Array.isArray(p.history))history=p.history;if(Array.isArray(p.automaticPlanBackups)){automaticPlanBackups=p.automaticPlanBackups;localStorage.setItem(AUTO_BACKUP_KEY,JSON.stringify(automaticPlanBackups))}save();localStorage.setItem(HISTORY_KEY,JSON.stringify(history));setupUI();renderAll();toast("Backup restored.")}else toast("Invalid backup.")}catch(x){toast("Could not restore backup.")}e.target.value=""};rd.readAsText(f)}
+
+function repairLegacyAllocation(){
+ if(!Array.isArray(state.allocation) || !state.allocation.length) return;
+ let changed=false;
+ state.allocation.forEach(a=>{
+   if(!a.area || !a.desk) return;
+   let r=state.rooms.find(x=>x.id===a.roomId) ||
+         state.rooms.find(x=>String(x.number)===String(a.roomNumber));
+   if(r){
+     if(a.roomId!==r.id){a.roomId=r.id;changed=true;}
+     if(String(a.roomNumber)!==String(r.number)){a.roomNumber=r.number;changed=true;}
+   }
+ });
+ if(changed) save();
+}
+
+function renderAll(){setupUI();dashboard();renderStudents();renderRooms();renderDutyRoster();renderGenerate();renderPreview();renderRoomAlloc();renderClassAlloc();renderNoticeBoards();renderAttendance();renderRecordKeeper();renderExamRecords();renderReports();renderHistory();renderLock()}
+window.addEventListener("beforeunload",save);
+load();setupUI();renderAll();
+</script>
+</body>
+</html>
